@@ -10,3 +10,20 @@ spring:
       database: my-database
       username: DDonghyeo
       password: 1234
+
+
+mail:
+  smtp:
+    port: 465
+    auth: true
+    starttls:
+      required: true
+      enable: true
+    socketFactory:
+      class: javax.net.ssl.SSLSocketFactory
+      fallback: false
+      port: 465
+
+AdminMail:
+  id: mailmail@gmail.com
+  password: password
