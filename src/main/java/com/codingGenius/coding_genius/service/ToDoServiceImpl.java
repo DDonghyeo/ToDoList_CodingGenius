@@ -24,9 +24,9 @@ public class ToDoServiceImpl implements ToDoService{
     }
 
     @Override
-    public List<ToDoResponseDto> findAll(){
+    public List<ToDoResponseDto> findByUserId(Long userId){
         try{
-            List<ToDoResponseDto> toDoList = toDoRepository.findAll();
+            List<ToDoResponseDto> toDoList = toDoRepository.findByUserId(userId);
             return toDoList;
         } catch (Exception e){
             e.printStackTrace();
