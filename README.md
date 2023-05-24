@@ -22,6 +22,9 @@
 - Spring Boot DevTools
 - Mysql Drvier
 - Spring Data JDBC
+- jwt
+- Java Mail Sender
+- Swagger
 
 ## Database
 MongoDB
