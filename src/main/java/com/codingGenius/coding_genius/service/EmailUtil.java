@@ -1,22 +1,32 @@
 package com.codingGenius.coding_genius.service;
 
+import com.codingGenius.coding_genius.domain.EmailValidation;
+import com.codingGenius.coding_genius.repository.EmailRepository;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 
+import java.sql.Time;
+import java.util.Date;
+import java.util.Optional;
 import java.util.Random;
 
-public class EmailServiceImpl implements EmailService{
-    @Autowired
+public class EmailUtil{
+
     JavaMailSender emailSender;
+
+    @Autowired
+    EmailRepository emailRepository;
 
     public static final String ePw = createKey();
 
     private MimeMessage createMessage(String to)throws Exception{
         System.out.println("보내는 대상 : "+ to);
         System.out.println("인증 번호 : "+ePw);
+
+        isnertDB(to, ePw);
         MimeMessage  message = emailSender.createMimeMessage();
 
         message.addRecipients(MimeMessage.RecipientType.TO, to);//보내는 대상
@@ -61,7 +71,7 @@ public class EmailServiceImpl implements EmailService{
         }
         return key.toString();
     }
-    @Override
+
     public String sendMessage(String to)throws Exception {
         // TODO Auto-generated method stub
         MimeMessage message = createMessage(to);
@@ -72,5 +82,20 @@ public class EmailServiceImpl implements EmailService{
             throw new IllegalArgumentException();
         }
         return ePw;
+    }
+
+    private void isnertDB(String email, String ePw){
+        Date now = new Date();
+        Long EMAIL_EXP = 1000L * 60 * 5; // 5 minutes
+        Time exp = (Time) new Date(now.getTime() + EMAIL_EXP);
+        EmailValidation emailValidation = new EmailValidation(email, exp, ePw);
+    }
+
+    public boolean ValidationCheck(String email, String code){
+        Optional<EmailValidation> emailValidation = emailRepository.findById(email);
+        if(emailValidation.isPresent()){
+            return (emailValidation.getEPw().equals(code));
+        } else return false;
+
     }
 }

@@ -13,16 +13,40 @@ public class ToDoController {
 
     @PostMapping("/ToDo")
     public ToDoResponseDto createToDo(ToDoRequestDto toDoRequestDto){
-        return toDoService.save(toDoRequestDto);
+        try{
+            return toDoService.save(toDoRequestDto);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @GetMapping("/ToDo")
     public List<ToDoResponseDto> getToDo(@RequestBody Long userId){
-        return toDoService.findAll(userId);
+        try{
+            return toDoService.findAll(userId);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @PutMapping("/ToDo/{id}")
     public ToDoResponseDto updateToDo(@PathVariable("id") long id, @RequestBody ToDoRequestDto toDoRequestDto){
-        
+        try{
+            return toDoService.update(id, toDoRequestDto);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @DeleteMapping("/ToDo/{id}")
+    public void deleteToDo(@PathVariable("id") long id){
+        try{
+            toDoService.delete(id);
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 }

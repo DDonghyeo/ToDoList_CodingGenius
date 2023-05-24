@@ -1,5 +1,7 @@
 package com.codingGenius.coding_genius.service;
 
 public interface LoginService {
-    public String requestEmailValidation(String email);
+    public boolean requestEmailValidation(String email);
+
+    public boolean checkEmailValidation(String email, String code)
 }

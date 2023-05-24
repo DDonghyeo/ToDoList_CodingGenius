@@ -10,17 +10,19 @@ public class LoginServiceImpl implements LoginService{
     @Autowired
     UserRepository userRepository;
 
-    EmailService emailService;
+    EmailUtil emailUtil;
 
     @Override
-    public String requestEmailValidation(String email){
+    public boolean requestEmailValidation(String email){
         try {
-            emailService.sendMessage(email);
+            emailUtil.sendMessage(email);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public
+    public boolean checkEmailValidation(String email, String code){
+            return emailUtil.ValidationCheck(email, code);
+    }
 
 }

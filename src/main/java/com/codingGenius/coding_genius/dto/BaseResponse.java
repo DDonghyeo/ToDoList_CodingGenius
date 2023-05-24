@@ -14,11 +14,12 @@ import static com.codingGenius.coding_genius.dto.BaseResponseStatus.SUCCESS;
 @Getter
 @AllArgsConstructor
 @JsonPropertyOrder({"code", "message"})
-public class BaseResponse<T> {//BaseResponse 객체를 사용할때 성공, 실패 경우
-    private final String message;
-    private final int code;
+public class BaseResponse<T> {
 
-    public BaseResponse(T result) {
+    private final int code;
+    private final String message;
+
+    public BaseResponse() {
         this.message = SUCCESS.getMessage();
         this.code = SUCCESS.getCode();
     }

@@ -1,5 +1,6 @@
 package com.codingGenius.coding_genius.controller;
 
+import com.codingGenius.coding_genius.dto.BaseResponse;
 import com.codingGenius.coding_genius.service.LoginService;
 import io.swagger.annotations.ApiOperation;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,9 +18,10 @@ public class LoginController {
 
     @PostMapping("/email")
     @ApiOperation(value = "이메일 유효성 요청", notes = "Request Body에 email을 담아서 보내면 해당 이메일로 전송 메세지가 전송됨")
-    public ResponseEntity requestEmailValidation(@RequestBody String email) {
+    public BaseResponse<Void> requestEmailValidation(@RequestBody String email) {
         try {
-            return ResponseEntity.ok(loginService.emailValidation(email));
+            loginService.requestEmailValidation(email);
+            return new BaseResponse<>();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -27,4 +29,11 @@ public class LoginController {
 
     @GetMapping("/email")
     @ApiOperation(value = "이메일 유효성 확인")
+    public BaseResponse<Void> checkEmailValidation(@RequestParam("code") String code, @RequestParam("email") String email) {
+        try {
+            loginService.checkEmailValidation(email, code);
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
 }

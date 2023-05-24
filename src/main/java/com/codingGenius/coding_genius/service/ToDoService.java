@@ -8,7 +8,9 @@ public interface ToDoService {
 
     public List<ToDoResponseDto> findAll(Long userId);
 
-    public ToDo update(Long id, ToDoRequestDto toDoRequestDto);
+    public ToDoResponseDto update(Long id, ToDoRequestDto toDoRequestDto);
 
     public void delete(Long id);
+
+    public List<ToDoResponseDto> sort(Long userId);
 }

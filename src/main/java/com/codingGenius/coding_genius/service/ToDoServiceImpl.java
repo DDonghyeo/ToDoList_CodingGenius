@@ -4,7 +4,10 @@ import com.codingGenius.coding_genius.domain.ToDo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.sql.Time;
 
 @Service
 public class ToDoServiceImpl implements ToDoService{
@@ -35,15 +38,14 @@ public class ToDoServiceImpl implements ToDoService{
     }
 
     @Override
-    public ToDo update(Long id, ToDoRequestDto toDoRequestDto){
+    public ToDoResponseDto update(Long id, ToDoRequestDto toDoRequestDto){
         try{
             Optional<ToDo> toDoData = toDoRepository.findById(id);
             if(toDoData.isPresent()){
                 ToDo toDo = toDoData.get();
                 toDo.setName(toDoRequestDto.getName());
                 toDo.setExpiration(toDoRequestDto.getExpiration());
-                toDoRepository.save(toDo);
-                return toDo;
+                return toDoRepository.save(toDo);
             }else{
                 return null;
             }
@@ -60,5 +62,24 @@ public class ToDoServiceImpl implements ToDoService{
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public List<ToDoResponseDto> sort(Long userId){
+        try{
+            List<ToDoResponseDto> toDoList = findByUserId(userId);
+            List<Time> expList = new ArrayList<>();
+
+            /*
+            for(ToDoResponseDto toDo : toDoList){
+                expList.add(toDo.getExpiration);
+            }
+            */
+
+            //정렬하기
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

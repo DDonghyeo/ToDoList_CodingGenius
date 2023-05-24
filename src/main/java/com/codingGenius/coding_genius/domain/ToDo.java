@@ -4,12 +4,14 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.sql.Time;
+
 @Getter
 @Setter
 @Document(collection = "ToDo")
 public class ToDo {
     private Long id;
     private String name;
-    private String expiration;
+    private Time expiration;
     private Long userId;
 }
