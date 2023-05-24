@@ -6,5 +6,9 @@ import org.springframework.http.ResponseEntity;
 public interface ToDoService {
     public ToDo save(ToDoRequestDto toDoRequestDto);
 
-    public 
+    public List<ToDoResponseDto> findAll();
+
+    public ToDo update(Long id, ToDoRequestDto toDoRequestDto);
+
+    public void delete(Long id);
 }
