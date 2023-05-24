@@ -4,12 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.sql.Time;
+
 @Getter
 @Setter
-@Document(collection = "ToDo")
-public class ToDo {
+@Document(collection = "user")
+public class EmailValidation {
     private Long id;
-    private String name;
-    private String expiration;
-    private Long userId;
+    private Time exp;
+    private String ePw;
 }

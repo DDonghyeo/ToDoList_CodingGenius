@@ -13,7 +13,7 @@ public class ToDoServiceImpl implements ToDoService{
     ToDoRepository toDoRepository;
 
     @Override
-    public ToDo save(ToDoRequestDto toDoRequestDto){
+    public ToDoResponseDto save(ToDoRequestDto toDoRequestDto){
         try{
             ToDo toDo = toDoRepository.save(toDoRequestDto);
             return new ToDoResponseDto(toDo.getName(), toDo.getExpiration());

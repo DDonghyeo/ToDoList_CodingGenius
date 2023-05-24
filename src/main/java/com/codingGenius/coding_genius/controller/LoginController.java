@@ -13,14 +13,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/login")
 public class LoginController {
 
-    @Autowired
     LoginService loginService;
 
     @PostMapping("/email")
-    @ApiOperation(value = "이메일 유효성 검사", notes = "")
-    public ResponseEntity emailValidation(@RequestBody String email){
+    @ApiOperation(value = "이메일 유효성 요청", notes = "Request Body에 email을 담아서 보내면 해당 이메일로 전송 메세지가 전송됨")
+    public ResponseEntity requestEmailValidation(@RequestBody String email) {
         try {
-            loginService.
+            return ResponseEntity.ok(loginService.emailValidation(email));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
+
+    @GetMapping("/email")
+    @ApiOperation(value = "이메일 유효성 확인")
 }
