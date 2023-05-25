@@ -1,8 +1,4 @@
 
-
-/* Please ❤ this if you like it! */
-
-
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
 
 body{
@@ -14,45 +10,56 @@ body{
 	background-color: #1f2029;
 	overflow-x: hidden;
 }
+
 a {
-	cursor: pointer;
+  cursor: pointer;
   transition: all 200ms linear;
 }
+
 a:hover {
 	text-decoration: none;
 }
+
 .link {
   color: #c4c3ca;
 }
+
 .link:hover {
   color: #ffeba7;
 }
+
 p {
   font-weight: 500;
   font-size: 14px;
   line-height: 1.7;
 }
+
 h4 {
   font-weight: 600;
 }
+
 h6 span{
   padding: 0 20px;
   text-transform: uppercase;
   font-weight: 700;
 }
+
 .section{
   position: relative;
   width: 100%;
   display: block;
 }
+
 .full-height{
   min-height: 100vh;
 }
+
 [type="checkbox"]:checked,
 [type="checkbox"]:not(:checked){
   position: absolute;
   left: -9999px;
 }
+
 .checkbox:checked + label,
 .checkbox:not(:checked) + label{
   position: relative;
@@ -66,6 +73,7 @@ h6 span{
   cursor: pointer;
   background-color: #ffeba7;
 }
+
 .checkbox:checked + label:before,
 .checkbox:not(:checked) + label:before{
   position: absolute;
@@ -100,6 +108,7 @@ h6 span{
   perspective: 800px;
   margin-top: 60px;
 }
+
 .card-3d-wrapper {
   width: 100%;
   height: 100%;
