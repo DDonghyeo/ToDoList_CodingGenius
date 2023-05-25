@@ -4,5 +4,5 @@ import com.codingGenius.coding_genius.domain.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface UserRepository extends MongoRepository<User, Long> {
-    public User findUserById(Long id);
+    public User findUserByEmail(String email);
 }

@@ -72,7 +72,7 @@ public class EmailUtil{
         return key.toString();
     }
 
-    public String sendMessage(String to)throws Exception {
+    public void sendMessage(String to)throws Exception {
         // TODO Auto-generated method stub
         MimeMessage message = createMessage(to);
         try{//예외처리
@@ -81,7 +81,6 @@ public class EmailUtil{
             es.printStackTrace();
             throw new IllegalArgumentException();
         }
-        return ePw;
     }
 
     private void isnertDB(String email, String ePw){
@@ -89,13 +88,11 @@ public class EmailUtil{
         Long EMAIL_EXP = 1000L * 60 * 5; // 5 minutes
         Time exp = (Time) new Date(now.getTime() + EMAIL_EXP);
         EmailValidation emailValidation = new EmailValidation(email, exp, ePw);
+        emailRepository.save(emailValidation);
     }
 
     public boolean ValidationCheck(String email, String code){
         Optional<EmailValidation> emailValidation = emailRepository.findById(email);
-        if(emailValidation.isPresent()){
-            return (emailValidation.getEPw().equals(code));
-        } else return false;
-
+        return emailValidation.map(validation -> (validation.getEPw().equals(code))).orElse(false);
     }
 }

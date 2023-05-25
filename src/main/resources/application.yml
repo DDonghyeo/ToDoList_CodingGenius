@@ -27,3 +27,7 @@ mail:
 AdminMail:
   id: mailmail@gmail.com
   password: password
+
+
+jwt:
+  secret: 6B64DCA4E72F58EDIKU9AAB215FE7

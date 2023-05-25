@@ -1,6 +1,5 @@
 package com.codingGenius.coding_genius.service;
 
-import com.codingGenius.coding_genius.config.JwtConfig;
 import io.jsonwebtoken.Jwts;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;

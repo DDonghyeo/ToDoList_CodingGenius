@@ -10,7 +10,7 @@ import java.sql.Time;
 @Getter
 @Setter
 @AllArgsConstructor
-@Document(collection = "user")
+@Document(collection = "emailValidation")
 public class EmailValidation {
     private String email;
     private Time exp;
