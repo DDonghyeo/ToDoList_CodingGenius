@@ -2,7 +2,10 @@ package com.codingGenius.coding_genius.controller;
 
 import com.codingGenius.coding_genius.dto.LoginRequestDto;
 import com.codingGenius.coding_genius.dto.RegisterRequestDto;
+import com.codingGenius.coding_genius.service.JwtService;
 import com.codingGenius.coding_genius.service.LoginService;
+import com.codingGenius.coding_genius.utils.JwtTokenProvider;
+import com.codingGenius.coding_genius.utils.JwtUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -17,7 +20,7 @@ public class LoginController {
     LoginService loginService;
 
     @PostMapping("/email")
-    @ApiOperation(value = "이메일 유효성 요청", notes = "Request Body에 email을 담아서 보내면 해당 이메일로 전송 메세지가 전송됨")
+    @ApiOperation(value = "이메일 유효성 요청", notes = "Request : Request Body에 email을 담아서 보내면 해당 이메일로 전송 메세지가 전송됨 \n Response : Https Status 200")
     public ResponseEntity<?> requestEmailValidation(@RequestBody String email) {
         try {
             loginService.requestEmailValidation(email);
@@ -40,11 +43,11 @@ public class LoginController {
     }
 
     @PostMapping("")
-    @ApiOperation(value = "유저 일반 로그인 요청", notes = "Response : Token")
-    public ResponseEntity<String> userLogin(@RequestBody LoginRequestDto loginRequestDto){
+    @ApiOperation(value = "유저 일반 로그인 요청", notes = "Request : \n \t Request Body : loginRequestDto  - email,password \n passwordResponse : \n\t (String) Token")
+    public ResponseEntity<?> userLogin(@RequestBody LoginRequestDto loginRequestDto){
         if(loginService.userLogin(loginRequestDto.getEmail(), loginRequestDto.getPassword())){
-
-        };
+            return ResponseEntity.ok(JwtTokenProvider.createAccessToken(loginRequestDto.getEmail()));
+        } else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("/register")

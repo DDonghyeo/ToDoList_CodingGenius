@@ -23,14 +23,14 @@ public class UserController {
      * @param httpServletRequest : Authorization String token (header)
      * */
     @GetMapping("/")
-    @ApiOperation(value = "#1 사용자 정보 얻기", notes = "Request Header에 Authorization : token 넣어서 요청")
+    @ApiOperation(value = "#1 사용자 정보 얻기", notes = "Request : Request Header에 Authorization : token 넣어서 요청 \n Response : Response Body : User Info")
     public ResponseEntity<UserResponseDto> getUserInfo(HttpServletRequest httpServletRequest){
         String token = httpServletRequest.getHeader("Authorization");
         return  ResponseEntity.ok(userService.getUserInfo(token));
     }
 
     @GetMapping("/name")
-    @ApiOperation(value = "사용자 이름 얻기", notes = "Request Header에 Authorization : token 넣어서 요청")
+    @ApiOperation(value = "사용자 이름 얻기", notes = " Request : Request Header에 Authorization : token 넣어서 요청 \n Response : Response Body : String")
     public ResponseEntity<String> getUsername(HttpServletRequest httpServletRequest) {
         String token = httpServletRequest.getHeader("Authorization");
         return ResponseEntity.ok(userService.getUserName(token));

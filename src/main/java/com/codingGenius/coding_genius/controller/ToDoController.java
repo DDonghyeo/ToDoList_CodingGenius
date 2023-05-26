@@ -1,20 +1,24 @@
 package com.codingGenius.coding_genius.controller;
 
+import com.codingGenius.coding_genius.dto.ToDoRequestDto;
 import com.codingGenius.coding_genius.service.ToDoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/tood")
 public class ToDoController {
 
     @Autowired
     ToDoService toDoService;
 
     @PostMapping("/ToDo")
-    public ToDoResponseDto createToDo(ToDoRequestDto toDoRequestDto){
+    public ResponseEntity<?> createToDo(ToDoRequestDto toDoRequestDto){
         try{
-            return toDoService.save(toDoRequestDto);
+            toDoService.save(toDoRequestDto);
+            return new ResponseEntity<>(HttpStatus.OK);
         }catch(Exception e){
             e.printStackTrace();
         }
