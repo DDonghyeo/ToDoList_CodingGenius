@@ -1,0 +1,14 @@
+body {
+    background-color: #1f2029;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.box {
+    width: 200px;
+    height: 200px;
+    background-color: #2a2b38;
+}

@@ -21,4 +21,5 @@ import ToDoList.views
 urlpatterns = {
     path('admin/', admin.site.urls),
     path('', ToDoList.views.index, name ='index'),
+    path('home', ToDoList.views.home, name ='home'),
 }
