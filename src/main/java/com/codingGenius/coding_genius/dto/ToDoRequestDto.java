@@ -1,14 +1,16 @@
 package com.codingGenius.coding_genius.dto;
 
-import com.codingGenius.coding_genius.domain.Work;
-import lombok.Data;
+import lombok.Getter;
 
 import java.sql.Time;
-import java.util.ArrayList;
 
-@Data
+@Getter
 public class ToDoRequestDto {
 
-    private String email;
+    private String name;
+
+    private Time expiration;
+
+    private boolean complete;
 
 }

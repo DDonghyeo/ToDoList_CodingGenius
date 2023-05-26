@@ -1,16 +1,18 @@
 package com.codingGenius.coding_genius.controller;
 
+import com.codingGenius.coding_genius.domain.ToDo;
+import com.codingGenius.coding_genius.domain.ToDoList;
 import com.codingGenius.coding_genius.dto.ToDoRequestDto;
-import com.codingGenius.coding_genius.dto.ToDoResponseDto;
 import com.codingGenius.coding_genius.service.ToDoService;
 import com.codingGenius.coding_genius.utils.JwtUtil;
-import jakarta.servlet.http.HttpServletRequest;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/todo")
@@ -20,9 +22,11 @@ public class ToDoController {
     ToDoService toDoService;
 
     @PostMapping("/")
-    public ResponseEntity<?> createToDo(ToDoRequestDto toDoRequestDto){
+    @ApiOperation(value = "할 일 생성", notes = "Request : Request Header에 Authorization : token, Request Body에 name, expiration, complete를 담아서 보내면 할 일이 생성됨\nResponse : Https Status 200")
+    public ResponseEntity<?> createToDo(HttpServletRequest httpServletRequest, @RequestBody ToDoRequestDto toDoRequestDto){
         try{
-            toDoService.save(toDoRequestDto);
+            String email = JwtUtil.getBody(httpServletRequest.getHeader("Authorization"));
+            toDoService.save(email, toDoRequestDto);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch(Exception e){
             e.printStackTrace();
@@ -31,20 +35,24 @@ public class ToDoController {
     }
 
     @GetMapping("/")
-    public List<ToDoResponseDto> getToDo(HttpServletRequest httpServletRequest){
+    @ApiOperation(value = "할 일 가져오기", notes = "Request : Request Header에 Authorization : token 넣어서 요청\nResponse : ArrayList<ToDo>")
+    public ResponseEntity<ArrayList<ToDo>> getToDoList(HttpServletRequest httpServletRequest){
         try{
-            String pk = JwtUtil.getBody(httpServletRequest.getHeader("Authorization"));
-            return toDoService.findAll(pk);
+            String pk = JwtUtil.getBody(httpServletRequest.getHeader("Authorization"));//email?
+            ToDoList toDoList = toDoService.findByEmail(pk);
+            return ResponseEntity.ok().body(toDoList.getToDoArrayList());
         }catch (Exception e){
             e.printStackTrace();
         }
         return null;
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateToDo(@PathVariable("id") long id, @RequestBody ToDoRequestDto toDoRequestDto){
+    @PutMapping("/")
+    @ApiOperation(value = "할 일 업데이트", notes = "Request : Request Header에 Authorization : token 넣어서 요청\nResponse : Https Status 200")
+    public ResponseEntity<?> updateToDo(HttpServletRequest httpServletRequest, @RequestBody ToDoRequestDto toDoRequestDto){
         try{
-            toDoService.update(id, toDoRequestDto);
+            String email = JwtUtil.getBody(httpServletRequest.getHeader("Authorization"));
+            toDoService.update(email, toDoRequestDto);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
@@ -52,10 +60,12 @@ public class ToDoController {
         return null;
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteToDo(@PathVariable("id") long id){
+    @DeleteMapping("/")
+    @ApiOperation(value = "할 일 삭제", notes = "Request : Request Header에 Authorization : token, Request Body에 name 넣어서 요청\nResponse : Https Status 200")
+    public ResponseEntity<?> deleteToDo(HttpServletRequest httpServletRequest, @RequestBody String name){
         try{
-            toDoService.delete(id);
+            String email = JwtUtil.getBody(httpServletRequest.getHeader("Authorization"));
+            toDoService.delete(email, name);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch(Exception e) {
             throw new RuntimeException(e);

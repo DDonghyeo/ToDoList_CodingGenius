@@ -3,16 +3,15 @@ package com.codingGenius.coding_genius.domain;
 import com.codingGenius.coding_genius.dto.ToDoRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.mongodb.core.mapping.Document;
-import springfox.documentation.spring.web.json.Json;
 
-import java.sql.Array;
 import java.sql.Time;
 import java.util.ArrayList;
 
 @Getter @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class ToDo {
 
     private String name;
@@ -22,5 +21,11 @@ public class ToDo {
     private ArrayList<Work> workArrayList;
 
     private boolean complete;
+
+    public ToDo(ToDoRequestDto toDoRequestDto){
+        this.name = toDoRequestDto.getName();
+        this.expiration = toDoRequestDto.getExpiration();
+        this.complete = toDoRequestDto.isComplete();
+    }
 
 }
