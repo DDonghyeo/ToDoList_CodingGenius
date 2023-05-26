@@ -17,11 +17,10 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserResponseDto getUserInfo(String token) {
+    public UserResponseDto getUserInfo(String email) {
         try{
-            log.info("Get User Info...");
-            String user_email = JwtUtil.getBody(token);
-            User user = userRepository.findUserByEmail(user_email);
+
+            User user = userRepository.findUserByEmail(email);
             return new UserResponseDto(user.getName(),user.getEmail());
         } catch (Exception e){
             e.printStackTrace();

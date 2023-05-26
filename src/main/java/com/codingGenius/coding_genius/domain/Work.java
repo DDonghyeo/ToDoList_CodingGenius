@@ -8,8 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 @Document(collection = "work")
 public class Work {
-    private Long id;
-    private Long toDoId;
+
     private String name;
+
     private boolean complete;
 }

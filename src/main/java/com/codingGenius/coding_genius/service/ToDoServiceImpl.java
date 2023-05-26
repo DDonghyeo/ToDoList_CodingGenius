@@ -1,6 +1,9 @@
 package com.codingGenius.coding_genius.service;
 
 import com.codingGenius.coding_genius.domain.ToDo;
+import com.codingGenius.coding_genius.dto.ToDoRequestDto;
+import com.codingGenius.coding_genius.dto.ToDoResponseDto;
+import com.codingGenius.coding_genius.repository.ToDoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +19,7 @@ public class ToDoServiceImpl implements ToDoService{
     ToDoRepository toDoRepository;
 
     @Override
-    public ToDoResponseDto save(ToDoRequestDto toDoRequestDto){
+    public void save(ToDoRequestDto toDoRequestDto){
         try{
             ToDo toDo = toDoRepository.save(toDoRequestDto);
             return new ToDoResponseDto(toDo.getName(), toDo.getExpiration());

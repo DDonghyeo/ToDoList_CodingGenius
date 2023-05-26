@@ -2,6 +2,7 @@ package com.codingGenius.coding_genius.controller;
 
 import com.codingGenius.coding_genius.dto.UserResponseDto;
 import com.codingGenius.coding_genius.service.UserService;
+import com.codingGenius.coding_genius.utils.JwtUtil;
 import io.swagger.annotations.ApiOperation;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,8 @@ public class UserController {
     @ApiOperation(value = "#1 사용자 정보 얻기", notes = "Request : Request Header에 Authorization : token 넣어서 요청 \n Response : Response Body : User Info")
     public ResponseEntity<UserResponseDto> getUserInfo(HttpServletRequest httpServletRequest){
         String token = httpServletRequest.getHeader("Authorization");
+        JwtUtil.validateToken(token);
+        String email  = JwtUtil.getBody(token);
         return  ResponseEntity.ok(userService.getUserInfo(token));
     }
 
