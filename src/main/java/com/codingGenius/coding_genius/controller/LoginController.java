@@ -8,6 +8,7 @@ import com.codingGenius.coding_genius.utils.JwtTokenProvider;
 import com.codingGenius.coding_genius.utils.JwtUtil;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +18,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/login")
 public class LoginController {
 
+    @Autowired
     LoginService loginService;
 
     @PostMapping("/email")
-    @ApiOperation(value = "이메일 유효성 요청", notes = "Request : Request Body에 email을 담아서 보내면 해당 이메일로 전송 메세지가 전송됨 \n Response : Https Status 200")
+    @ApiOperation(value = "이메일 검사 요청", notes = "Request : Request Body에 email을 담아서 보내면 해당 이메일로 전송 메세지가 전송됨 \n Response : Https Status 200")
     public ResponseEntity<?> requestEmailValidation(@RequestBody String email) {
         try {
             loginService.requestEmailValidation(email);

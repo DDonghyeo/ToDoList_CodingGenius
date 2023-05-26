@@ -34,6 +34,7 @@ public class JwtUtil {
     // Jwt Parser
     public static String getBody(String accessToken) {
         try {
+            validateToken(accessToken);
             return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(accessToken).getBody().toString();
         } catch (ExpiredJwtException e) {
             return "expired token";

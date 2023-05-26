@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.Random;
 
-public class EmailUtil{
+public class EmailService {
 
     JavaMailSender emailSender;
 
@@ -93,6 +93,12 @@ public class EmailUtil{
 
     public boolean ValidationCheck(String email, String code){
         Optional<EmailValidation> emailValidation = emailRepository.findById(email);
+        Date now = new Date();
+        //expiration Check
+        if (now.after(emailValidation.get().getExp())) {
+            return false;
+        }
+        //Pw Check
         return emailValidation.map(validation -> (validation.getEPw().equals(code))).orElse(false);
     }
 }

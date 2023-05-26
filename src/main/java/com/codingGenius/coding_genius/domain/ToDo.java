@@ -1,5 +1,6 @@
 package com.codingGenius.coding_genius.domain;
 
+import com.codingGenius.coding_genius.dto.ToDoRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,12 +11,9 @@ import java.sql.Array;
 import java.sql.Time;
 import java.util.ArrayList;
 
-@Getter
+@Getter @Setter
 @AllArgsConstructor
-@Document(collection = "ToDo")
 public class ToDo {
-
-    private String email;
 
     private String name;
 

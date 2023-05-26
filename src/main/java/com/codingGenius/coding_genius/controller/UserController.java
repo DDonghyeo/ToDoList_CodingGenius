@@ -20,11 +20,8 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    /**
-     * @param httpServletRequest : Authorization String token (header)
-     * */
     @GetMapping("/")
-    @ApiOperation(value = "#1 사용자 정보 얻기", notes = "Request : Request Header에 Authorization : token 넣어서 요청 \n Response : Response Body : User Info")
+    @ApiOperation(value = "사용자 정보 얻기, 회원정보 관리 화면에서 사용", notes = "Request : Request Header에 Authorization : token 넣어서 요청 \n Response : Response Body : User Info")
     public ResponseEntity<UserResponseDto> getUserInfo(HttpServletRequest httpServletRequest){
         String token = httpServletRequest.getHeader("Authorization");
         JwtUtil.validateToken(token);
@@ -33,7 +30,7 @@ public class UserController {
     }
 
     @GetMapping("/name")
-    @ApiOperation(value = "사용자 이름 얻기", notes = " Request : Request Header에 Authorization : token 넣어서 요청 \n Response : Response Body : String")
+    @ApiOperation(value = "사용자 이름 얻기, 홈 화면에서 사용", notes = " Request : Request Header에 Authorization : token 넣어서 요청 \n Response : Response Body : String")
     public ResponseEntity<String> getUsername(HttpServletRequest httpServletRequest) {
         String token = httpServletRequest.getHeader("Authorization");
         return ResponseEntity.ok(userService.getUserName(token));

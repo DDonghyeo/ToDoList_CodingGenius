@@ -1,14 +1,18 @@
 package com.codingGenius.coding_genius.service;
 
 import com.codingGenius.coding_genius.domain.ToDo;
-import org.springframework.http.ResponseEntity;
+import com.codingGenius.coding_genius.domain.ToDoList;
+import com.codingGenius.coding_genius.dto.ToDoResponseDto;
+
+import java.util.List;
 
 public interface ToDoService {
-    public ToDoResponseDto save(ToDoRequestDto toDoRequestDto);
 
-    public List<ToDoResponseDto> findAll(Long userId);
+    public void save(String email, ToDo toDo);
 
-    public ToDoResponseDto update(Long id, ToDoRequestDto toDoRequestDto);
+    public ToDoList findByEmail(String email);
+
+    public void update(String email);
 
     public void delete(Long id);
 

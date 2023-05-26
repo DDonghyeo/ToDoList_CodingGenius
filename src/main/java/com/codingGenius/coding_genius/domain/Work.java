@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Setter
-@Document(collection = "work")
 public class Work {
 
     private String name;
