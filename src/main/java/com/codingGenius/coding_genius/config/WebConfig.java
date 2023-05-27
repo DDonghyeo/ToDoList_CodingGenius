@@ -1,10 +1,12 @@
 package com.codingGenius.coding_genius.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 
 @Configuration
 public class WebConfig extends WebMvcConfigurationSupport {
@@ -22,11 +24,18 @@ public class WebConfig extends WebMvcConfigurationSupport {
                 .maxAge(MAX_AGE_SECS); // 허용 시간
     }
 
+    //passwordEncoder
+    @Bean
+    public BCryptPasswordEncoder encodePassword() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/swagger-ui/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/swagger-ui/3.52.5/");
+                .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/");
 
     }
 }
+
 

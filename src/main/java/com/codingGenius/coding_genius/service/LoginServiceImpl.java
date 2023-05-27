@@ -2,19 +2,24 @@ package com.codingGenius.coding_genius.service;
 
 import com.codingGenius.coding_genius.domain.User;
 import com.codingGenius.coding_genius.repository.UserRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
+@RequiredArgsConstructor
 public class LoginServiceImpl implements LoginService{
 
     @Autowired
     UserRepository userRepository;
 
-    EmailService emailService;
+    private final EmailService emailService;
 
-    PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     //이메일 유효성 요청
     @Override
@@ -35,6 +40,7 @@ public class LoginServiceImpl implements LoginService{
     public void userRegister(String name, String email, String password) {
         String password_encoded = passwordEncoder.encode(password);
         User new_user = new User(name, email, password_encoded);
+        userRepository.save(new_user);
     }
 
     //유저 로그인

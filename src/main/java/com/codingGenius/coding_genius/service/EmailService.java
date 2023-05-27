@@ -2,22 +2,24 @@ package com.codingGenius.coding_genius.service;
 
 import com.codingGenius.coding_genius.domain.EmailValidation;
 import com.codingGenius.coding_genius.repository.EmailRepository;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.sql.Time;
 import java.util.Date;
 import java.util.Optional;
 import java.util.Random;
 
+@Service
 public class EmailService {
 
     JavaMailSender emailSender;
 
-    @Autowired
     EmailRepository emailRepository;
 
     public static final String ePw = createKey();
