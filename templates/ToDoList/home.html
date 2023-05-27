@@ -1,38 +1,111 @@
 <!DOCTYPE html>
 
-<html lang="ko">
+<html lang="en">
 {% load static %}
 <head>
     <title>색상 배경과 사각형 박스</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+    <script src="{% static 'js/home.js' %}"></script>
 </head>
 <body>
-    <div class="box">
-      	<input class="dark-light" type="checkbox" id="dark-light" name="dark-light"/>
-  	<label for="dark-light"></label>
+  <div class="box">
+    <div class="task">
+      <div class="task-header">
+        <h6>할 일 1</h6>
+        <button class="task-toggle-button" onclick="toggleTaskDetails(this)">+</button>
+      </div>
+      <div class="task-details">
+          <h6>
+            작업 1
+            <button class="memo-toggle-button" onclick="toggleTaskMemo(this)">+</button>
+            <div class="task-memo">
+              <h6>작업 1에 대한 메모</h6>
+            </div>
+          </h6>
+          <h6>
+            작업 2
+            <button class="memo-toggle-button" onclick="toggleTaskMemo(this)">+</button>
+            <div class="task-memo">
+              <h6>작업 2에 대한 메모</h6>
+            </div>
+          </h6>
 
-  	<div class="light-back"></div>
-
-	<a href="https://front.codes/" class="logo" target="_blank">
-		<img src="https://assets.codepen.io/1462889/fcy.png" alt="">
-	</a>
-
-  	<div class="sec-center">
-	  	<input class="dropdown" type="checkbox" id="dropdown" name="dropdown"/>
-	  	<label class="for-dropdown" for="dropdown">Dropdown Menu <i class="uil uil-arrow-down"></i></label>
-  		<div class="section-dropdown">
-  			<a href="#">Dropdown Link <i class="uil uil-arrow-right"></i></a>
-		  	<input class="dropdown-sub" type="checkbox" id="dropdown-sub" name="dropdown-sub"/>
-		  	<label class="for-dropdown-sub" for="dropdown-sub">Dropdown Sub <i class="uil uil-plus"></i></label>
-	  		<div class="section-dropdown-sub">
-	  			<a href="#">Dropdown Link <i class="uil uil-arrow-right"></i></a>
-	  			<a href="#">Dropdown Link <i class="uil uil-arrow-right"></i></a>
-	  		</div>
-  			<a href="#">Dropdown Link <i class="uil uil-arrow-right"></i></a>
-  			<a href="#">Dropdown Link <i class="uil uil-arrow-right"></i></a>
-  		</div>
-  	</div>
+      </div>
     </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
+
+<!--<body>-->
+<!--<div class="box">-->
+<!--    <div class="task" onclick="toggleTaskDetails(this)">-->
+<!--      <div class="task-box">-->
+<!--        <div class="task-title">-->
+<!--          <h3>할 일 1</h3>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="task-details">-->
+<!--        <ul>-->
+<!--          <div class="task-item" onclick="toggleTaskMemo(this)">-->
+<!--            <div class="details-box">-->
+<!--              <h4>작업 1</h4>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="task-memo">-->
+<!--            <div class="memo-box">-->
+<!--              <h5>작업 1에 대한 메모</h5>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <br>-->
+<!--          <div class="task-detail" onclick="toggleTaskMemo(this)">-->
+<!--            <div class="details-box">-->
+<!--              <h4>작업 2</h4>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="task-memo">-->
+<!--            <div class="memo-box">-->
+<!--              <h5>작업 2에 대한 메모</h5>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="task" onclick="toggleTaskDetails(this)">-->
+<!--      <div class="task-box">-->
+<!--        <div class="task-title">-->
+<!--          <h3>할 일 2</h3>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="task-details">-->
+<!--        <ul>-->
+<!--          <div class="task-item" onclick="toggleTaskMemo(this)">-->
+<!--            <div class="details-box">-->
+<!--              <h4>작업 3</h4>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="task-memo">-->
+<!--            <div class="memo-box">-->
+<!--              <h5>작업 3에 대한 메모</h5>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <br>-->
+<!--          <div class="task-item" onclick="toggleTaskMemo(this)">-->
+<!--            <div class="details-box">-->
+<!--              <h4>작업 4</h4>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="task-memo">-->
+<!--            <div class="memo-box">-->
+<!--              <h5>작업 4에 대한 메모</h5>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <script src="script.js"></script>-->
+<!--</body>-->
