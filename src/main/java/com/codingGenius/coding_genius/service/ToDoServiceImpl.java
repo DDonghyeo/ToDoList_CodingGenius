@@ -3,6 +3,7 @@ package com.codingGenius.coding_genius.service;
 import com.codingGenius.coding_genius.domain.ToDo;
 import com.codingGenius.coding_genius.domain.ToDoList;
 import com.codingGenius.coding_genius.dto.ToDoRequestDto;
+import com.codingGenius.coding_genius.dto.ToDoUpdateDto;
 import com.codingGenius.coding_genius.repository.ToDoListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,17 +39,23 @@ public class ToDoServiceImpl implements ToDoService{
     }
 
     @Override
-    public void update(String email, ToDoRequestDto toDoRequestDto){
+    public void update(String email, ToDoUpdateDto toDoUpdateDto){
         try{
+
             ToDoList toDoList = toDoListRepository.findByEmail(email);
             if(toDoList != null){
                 ArrayList<ToDo> toDoArrayList = toDoList.getToDoArrayList();
                 Iterator<ToDo> it = toDoArrayList.iterator();
                 while(it.hasNext()){
-                    if(it.next().getName().equals(toDoRequestDto.getName())){
+                    ToDo toDo = it.next();
+                    if(toDo.getName().equals(toDoUpdateDto.getOldName())){//여기서 업데이트하고 리포지토리 세이브
+                        //todoarraylist에서 todo를 변경하고 todoarraylist를 email과 함께 todolist에 넣는다.
+                        toDo.setName(toDoUpdateDto.getNewName());
+                        toDo.setComplete(toDoUpdateDto.isComplete());
+                        toDo.setExpiration(toDoUpdateDto.getExpiration());
                         it.remove();
+                        toDoArrayList.add(toDo);
                         toDoListRepository.save(new ToDoList(email, toDoArrayList));
-                        save(email, toDoRequestDto);
                         break;
                     }
                 }

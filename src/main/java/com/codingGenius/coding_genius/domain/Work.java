@@ -12,4 +12,6 @@ public class Work {
     private String name;
 
     private boolean complete;
+
+    private String memo;
 }

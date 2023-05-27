@@ -3,17 +3,20 @@ package com.codingGenius.coding_genius.controller;
 import com.codingGenius.coding_genius.domain.ToDo;
 import com.codingGenius.coding_genius.domain.ToDoList;
 import com.codingGenius.coding_genius.dto.ToDoRequestDto;
+import com.codingGenius.coding_genius.dto.ToDoUpdateDto;
 import com.codingGenius.coding_genius.service.ToDoService;
 import com.codingGenius.coding_genius.utils.JwtUtil;
 import io.swagger.annotations.ApiOperation;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
+@Slf4j
 @RestController
 @RequestMapping("/todo")
 public class ToDoController {
@@ -48,11 +51,11 @@ public class ToDoController {
     }
 
     @PutMapping("/")
-    @ApiOperation(value = "할 일 업데이트", notes = "Request : Request Header에 Authorization : token 넣어서 요청\nResponse : Https Status 200")
-    public ResponseEntity<?> updateToDo(HttpServletRequest httpServletRequest, @RequestBody ToDoRequestDto toDoRequestDto){
+    @ApiOperation(value = "할 일 업데이트", notes = "Request : Request Header에 Authorization : token, Request Body에 oldName, newName, expiration, complete 넣어서 요청\nResponse : Https Status 200")
+    public ResponseEntity<?> updateToDo(HttpServletRequest httpServletRequest, @RequestBody ToDoUpdateDto toDoUpdateDto){
         try{
             String email = JwtUtil.getBody(httpServletRequest.getHeader("Authorization"));
-            toDoService.update(email, toDoRequestDto);
+            toDoService.update(email, toDoUpdateDto);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (Exception e){
             e.printStackTrace();
