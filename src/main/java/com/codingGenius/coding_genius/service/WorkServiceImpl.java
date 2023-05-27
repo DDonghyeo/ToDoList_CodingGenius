@@ -28,17 +28,19 @@ public class WorkServiceImpl implements WorkService{
     //email, todoName으로 work를 넣을 todo를 찾음
     //todo의 work list에 work 추가
     //todolistrepository.save
-    /*
+    //email의 todo list에 todo 추가
+
     public void save(String email, WorkRequestDto workRequestDto){
         ToDo toDo = toDoService.findOne(email, workRequestDto.getTodoName());//work를 넣을 todo를 찾음
         Work work = new Work(workRequestDto.getWorkName(), workRequestDto.isComplete());//work 생성
         ArrayList<Work> workArrayList = toDo.getWorkArrayList();
         workArrayList.add(work);//todo의 work list에 work 추가
         ToDoList toDoList = toDoService.findByEmail(email);
-        toDoListRepository.
+        toDoList.getToDoArrayList().add(toDo);//todo list에 todo 추가
+        toDoListRepository.save(toDoList);//중복될경우 update
     }
-    */
 
+    @Override
     public ArrayList<Work> findWork(String email, String todoName){
         try{
             ToDo toDo = toDoService.findOne(email, todoName);
