@@ -10,14 +10,11 @@ public class WorkRequestDto {
 
     private String workName;
 
-    private boolean complete;
-
     private String memo;
 
     public WorkRequestDto(WorkUpdateDto workUpdateDto){
         this.todoName = workUpdateDto.getTodoName();
         this.workName = workUpdateDto.getNewName();
-        this.complete = workUpdateDto.isComplete();
         this.memo = workUpdateDto.getMemo();
     }
 }
