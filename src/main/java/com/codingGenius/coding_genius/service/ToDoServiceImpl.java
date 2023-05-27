@@ -8,6 +8,7 @@ import com.codingGenius.coding_genius.repository.ToDoListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -93,6 +94,33 @@ public class ToDoServiceImpl implements ToDoService{
             }
         }
         return null;
+    }
+
+    //todoname으로 todo찾기 complete 변경하고 저장
+    //todo가 있는 todoarraylist 찾아서 지우고 추가
+    //todolist에 todoarraylist 저장
+    //리포지토리에 저장
+    @Override
+    public void complete(String email, String todoName){
+        ToDo toDo = findOne(email, todoName);
+        if(toDo.isComplete()){
+            toDo.setComplete(false);
+        } else{
+            toDo.setComplete(true);
+        }
+
+        ToDoList toDoList = findByEmail(email);
+        ArrayList<ToDo> toDoArrayList = toDoList.getToDoArrayList();
+        Iterator<ToDo> it = toDoArrayList.iterator();
+        while(it.hasNext()){
+            if(it.next().getName().equals(todoName)){
+                it.remove();
+                toDoArrayList.add(toDo);
+                break;
+            }
+        }
+        toDoList.setToDoArrayList(toDoArrayList);
+        toDoListRepository.save(toDoList);
     }
 
 }

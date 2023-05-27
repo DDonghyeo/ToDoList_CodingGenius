@@ -3,7 +3,7 @@ package com.codingGenius.coding_genius.dto;
 import lombok.Getter;
 
 @Getter
-public class WorkDeleteDto {
+public class WorkCDDto {//Complete + Delete Dto
 
     private String todoName;
 

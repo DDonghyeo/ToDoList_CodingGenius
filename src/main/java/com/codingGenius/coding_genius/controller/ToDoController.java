@@ -64,7 +64,7 @@ public class ToDoController {
     }
 
     @DeleteMapping("/")
-    @ApiOperation(value = "할 일 삭제", notes = "Request : Request Header에 Authorization : token, Request Body에 name 넣어서 요청\nResponse : Https Status 200")
+    @ApiOperation(value = "할 일 삭제", notes = "Request : Request Header에 Authorization : token, Request Body에 todoName 넣어서 요청\nResponse : Https Status 200")
     public ResponseEntity<?> deleteToDo(HttpServletRequest httpServletRequest, @RequestBody String name){
         try{
             String email = JwtUtil.getBody(httpServletRequest.getHeader("Authorization"));
@@ -73,5 +73,18 @@ public class ToDoController {
         }catch(Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @PostMapping("/complete")
+    @ApiOperation(value = "할 일 완료 표시 변경", notes = "Request : Request Header에 Authorization : token, Request Body에 todoName 넣어서 요청\nResponse : Https Status 200")
+    public ResponseEntity<?> completeToDo(HttpServletRequest httpServletRequest, @RequestBody String todoName){
+        try{
+            String email = JwtUtil.getBody(httpServletRequest.getHeader("Authorization"));
+            toDoService.complete(email, todoName);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

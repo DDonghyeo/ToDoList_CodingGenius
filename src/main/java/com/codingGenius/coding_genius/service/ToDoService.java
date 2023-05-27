@@ -16,4 +16,6 @@ public interface ToDoService {
     public void delete(String email, String name);
 
     public ToDo findOne(String email, String todoName);
+
+    public void complete(String email, String todoName);
 }

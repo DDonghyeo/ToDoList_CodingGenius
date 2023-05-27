@@ -1,7 +1,7 @@
 package com.codingGenius.coding_genius.service;
 
 import com.codingGenius.coding_genius.domain.Work;
-import com.codingGenius.coding_genius.dto.WorkDeleteDto;
+import com.codingGenius.coding_genius.dto.WorkCDDto;
 import com.codingGenius.coding_genius.dto.WorkRequestDto;
 import com.codingGenius.coding_genius.dto.WorkUpdateDto;
 
@@ -15,5 +15,7 @@ public interface WorkService {
 
     public void update(String email, WorkUpdateDto workUpdateDto);
 
-    public void delete(String email, WorkDeleteDto workDeleteDto);
+    public void delete(String email, WorkCDDto workDeleteDto);
+
+    public void complete(String email, WorkCDDto workCDDto);
 }

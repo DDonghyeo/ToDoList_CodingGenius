@@ -11,6 +11,7 @@ public class Work {
 
     private String name;
 
+    @Setter
     private boolean complete;
 
     private String memo;

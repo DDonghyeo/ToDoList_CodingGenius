@@ -11,7 +11,5 @@ public class WorkUpdateDto {
 
     private String newName;
 
-    private boolean complete;
-
     private String memo;
 }
