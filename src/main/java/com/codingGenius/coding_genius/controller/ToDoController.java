@@ -24,7 +24,7 @@ public class ToDoController {
     @Autowired
     ToDoService toDoService;
 
-    @PostMapping("/")
+    @PostMapping("")
     @ApiOperation(value = "할 일 생성", notes = "Request : Request Header에 Authorization : token, Request Body에 name, expiration, complete를 담아서 보내면 할 일이 생성됨\nResponse : Https Status 200")
     public ResponseEntity<?> createToDo(HttpServletRequest httpServletRequest, @RequestBody ToDoRequestDto toDoRequestDto){
         try{

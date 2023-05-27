@@ -21,9 +21,10 @@ public class ToDoServiceImpl implements ToDoService{
     @Override
     public void save(String email, ToDoRequestDto toDoRequestDto){
         try{
-            ToDoList toDoList = findByEmail(email);
-            toDoList.getToDoArrayList().add(new ToDo(toDoRequestDto));
-            toDoListRepository.save(new ToDoList(email, toDoList.getToDoArrayList()));
+            ArrayList<ToDo> toDoArrayList = new ArrayList<>();
+            toDoArrayList.add(new ToDo(toDoRequestDto));
+            ToDoList toDoList = new ToDoList(email, toDoArrayList);
+            toDoListRepository.save(toDoList);
         } catch (Exception e) {
             e.printStackTrace();
         }

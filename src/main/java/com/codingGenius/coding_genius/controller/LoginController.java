@@ -21,7 +21,7 @@ public class LoginController {
 
     @PostMapping("/email")
     @ApiOperation(value = "이메일 검사 요청", notes = "Request : Request Body에 email을 담아서 보내면 해당 이메일로 전송 메세지가 전송됨 \n Response : Https Status 200")
-    public ResponseEntity<?> requestEmailValidation(@RequestBody String email) {
+    public ResponseEntity<?> requestEmailValidation(@RequestParam String email) {
         try {
             loginService.requestEmailValidation(email);
             return new ResponseEntity<>(HttpStatus.OK);

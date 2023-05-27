@@ -3,6 +3,7 @@ package com.codingGenius.coding_genius.service;
 import com.codingGenius.coding_genius.domain.EmailValidation;
 import com.codingGenius.coding_genius.repository.EmailRepository;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -10,21 +11,24 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
 @Service
+@Slf4j
 public class EmailService {
 
+    @Autowired
     JavaMailSender emailSender;
 
+    @Autowired
     EmailRepository emailRepository;
 
-    public static final String ePw = createKey();
 
     private MimeMessage createMessage(String to)throws Exception{
+        String ePw = createKey();
         System.out.println("보내는 대상 : "+ to);
         System.out.println("인증 번호 : "+ePw);
 
@@ -86,9 +90,16 @@ public class EmailService {
     }
 
     private void isnertDB(String email, String ePw){
+
+        //중복제거
+        List<EmailValidation> emailValidationList = emailRepository.findAllByEmail(email);
+        if (!emailValidationList.isEmpty()) {
+            emailRepository.deleteAll(emailValidationList);
+        }
+
         Date now = new Date();
         Long EMAIL_EXP = 1000L * 60 * 5; // 5 minutes
-        Time exp = (Time) new Date(now.getTime() + EMAIL_EXP);
+        Date exp = new Date(now.getTime() + EMAIL_EXP);
         EmailValidation emailValidation = new EmailValidation(email, exp, ePw);
         emailRepository.save(emailValidation);
     }
@@ -96,6 +107,7 @@ public class EmailService {
     public boolean ValidationCheck(String email, String code){
         Optional<EmailValidation> emailValidation = emailRepository.findById(email);
         Date now = new Date();
+        log.info("exp: "+ emailValidation.get());
         //expiration Check
         if (now.after(emailValidation.get().getExp())) {
             return false;
