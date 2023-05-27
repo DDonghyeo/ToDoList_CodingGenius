@@ -7,7 +7,6 @@ import com.codingGenius.coding_genius.dto.WorkDeleteDto;
 import com.codingGenius.coding_genius.dto.WorkRequestDto;
 import com.codingGenius.coding_genius.dto.WorkUpdateDto;
 import com.codingGenius.coding_genius.repository.ToDoListRepository;
-import com.codingGenius.coding_genius.repository.WorkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +15,6 @@ import java.util.Iterator;
 
 @Service
 public class WorkServiceImpl implements WorkService{
-
-    @Autowired
-    WorkRepository workRepository;
 
     @Autowired
     ToDoListRepository toDoListRepository;
