@@ -13,5 +13,4 @@ public class ToDoUpdateDto {
 
     private Time expiration;
 
-    private boolean complete;
 }

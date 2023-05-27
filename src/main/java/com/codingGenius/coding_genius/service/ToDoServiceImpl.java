@@ -51,7 +51,6 @@ public class ToDoServiceImpl implements ToDoService{
                     if(toDo.getName().equals(toDoUpdateDto.getOldName())){//여기서 업데이트하고 리포지토리 세이브
                         //todoarraylist에서 todo를 변경하고 todoarraylist를 email과 함께 todolist에 넣는다.
                         toDo.setName(toDoUpdateDto.getNewName());
-                        toDo.setComplete(toDoUpdateDto.isComplete());
                         toDo.setExpiration(toDoUpdateDto.getExpiration());
                         it.remove();
                         toDoArrayList.add(toDo);

@@ -25,7 +25,6 @@ public class ToDo {
     public ToDo(ToDoRequestDto toDoRequestDto){
         this.name = toDoRequestDto.getName();
         this.expiration = toDoRequestDto.getExpiration();
-        this.complete = toDoRequestDto.isComplete();
     }
 
 }
