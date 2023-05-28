@@ -45,7 +45,7 @@ public class ToDoServiceImpl implements ToDoService{
         try{
             Optional<ToDoList> toDoList = toDoListRepository.findByEmail(email);
             if (toDoList.isPresent()) {
-                return toDoListRepository.findByEmail(email).get();
+                return toDoList.get();
             }
         } catch (Exception e){
             e.printStackTrace();

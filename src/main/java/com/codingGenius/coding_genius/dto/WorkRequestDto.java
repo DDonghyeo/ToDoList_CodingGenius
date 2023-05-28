@@ -19,4 +19,5 @@ public class WorkRequestDto {
         this.workName = workUpdateDto.getNewName();
         this.memo = workUpdateDto.getMemo();
     }
+
 }
