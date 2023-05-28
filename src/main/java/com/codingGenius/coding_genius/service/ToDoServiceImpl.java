@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Optional;
 
 @Service
 public class ToDoServiceImpl implements ToDoService{
@@ -21,18 +22,31 @@ public class ToDoServiceImpl implements ToDoService{
     @Override
     public void save(String email, ToDoRequestDto toDoRequestDto){
         try{
-            ToDoList toDoList = findByEmail(email);
-            toDoList.getToDoArrayList().add(new ToDo(toDoRequestDto));
-            toDoListRepository.save(new ToDoList(email, toDoList.getToDoArrayList()));
+            Optional<ToDoList> toDoList = toDoListRepository.findByEmail(email);
+            if (toDoList.isPresent()) { //있을 시
+                ArrayList<ToDo> toDoArrayList = toDoList.get().getToDoArrayList();
+                toDoArrayList.add(new ToDo(toDoRequestDto));
+                toDoListRepository.save(new ToDoList(email, toDoArrayList));
+            }else createTodo(email, toDoRequestDto); //없을 시
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    private void createTodo(String email, ToDoRequestDto toDoRequestDto) {
+        ArrayList<ToDo> toDoArrayList = new ArrayList<>();
+        toDoArrayList.add(new ToDo(toDoRequestDto));
+        ToDoList toDoList = new ToDoList(email, toDoArrayList);
+        toDoListRepository.save(toDoList);
+    }
+
     @Override
     public ToDoList findByEmail(String email){
         try{
-            toDoListRepository.findByEmail(email);
+            Optional<ToDoList> toDoList = toDoListRepository.findByEmail(email);
+            if (toDoList.isPresent()) {
+                return toDoList.get();
+            }
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -43,9 +57,9 @@ public class ToDoServiceImpl implements ToDoService{
     public void update(String email, ToDoUpdateDto toDoUpdateDto){
         try{
 
-            ToDoList toDoList = toDoListRepository.findByEmail(email);
-            if(toDoList != null){
-                ArrayList<ToDo> toDoArrayList = toDoList.getToDoArrayList();
+            Optional<ToDoList> toDoList = toDoListRepository.findByEmail(email);
+            if(toDoList.isPresent()){
+                ArrayList<ToDo> toDoArrayList = toDoList.get().getToDoArrayList();
                 Iterator<ToDo> it = toDoArrayList.iterator();
                 while(it.hasNext()){
                     ToDo toDo = it.next();
@@ -68,13 +82,15 @@ public class ToDoServiceImpl implements ToDoService{
     @Override
     public void delete(String email, String name){//email의 todo중에서 name을 찾아서 삭제
         try{
-            ToDoList toDoList = toDoListRepository.findByEmail(email);
-            ArrayList<ToDo> toDoArrayList = toDoList.getToDoArrayList();
-            Iterator<ToDo> it = toDoArrayList.iterator();
-            while(it.hasNext()){
-                if(it.next().getName().equals(name)){
-                    it.remove();
-                    toDoListRepository.save(new ToDoList(email, toDoArrayList));
+            Optional<ToDoList> toDoList = toDoListRepository.findByEmail(email);
+            if (toDoList.isPresent()) {
+                ArrayList<ToDo> toDoArrayList = toDoList.get().getToDoArrayList();
+                Iterator<ToDo> it = toDoArrayList.iterator();
+                while(it.hasNext()){
+                    if(it.next().getName().equals(name)){
+                        it.remove();
+                        toDoListRepository.save(new ToDoList(email, toDoArrayList));
+                    }
                 }
             }
 
@@ -86,10 +102,8 @@ public class ToDoServiceImpl implements ToDoService{
     @Override
     public ToDo findOne(String email, String todoName){
         ArrayList<ToDo> toDoArrayList = findByEmail(email).getToDoArrayList();
-        Iterator<ToDo> it = toDoArrayList.iterator();
-        while(it.hasNext()){
-            ToDo toDo = it.next();
-            if(toDo.getName().equals(todoName)){
+        for (ToDo toDo : toDoArrayList) {
+            if (toDo.getName().equals(todoName)) {
                 return toDo;
             }
         }

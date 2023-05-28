@@ -2,8 +2,10 @@ package com.codingGenius.coding_genius.dto;
 
 import com.codingGenius.coding_genius.domain.Work;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class WorkRequestDto {
 
     private String todoName;
@@ -17,4 +19,5 @@ public class WorkRequestDto {
         this.workName = workUpdateDto.getNewName();
         this.memo = workUpdateDto.getMemo();
     }
+
 }

@@ -5,14 +5,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.sql.Time;
+import java.util.Date;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class ToDoRequestDto {
 
     private String name;
 
-    private Time expiration;
+    private String expiration;
 
 
 }

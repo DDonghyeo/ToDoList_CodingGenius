@@ -7,7 +7,6 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration
 @PropertySource(value = {"/application.yml"}, factory = YamlPropertySourceFactory.class)
 public class JwtConfig {
-
-    @Value("${jwt.secret")
-    public static String SECRET_KEY;
+    @Value("${jwt.secret}")
+    private String SECRET_KEY;
 }

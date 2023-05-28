@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-@EnableWebMvc
+
 @EnableMongoRepositories
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class CodingGeniusApplication {

@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Getter @Setter
 @AllArgsConstructor
@@ -16,7 +17,7 @@ public class ToDo {
 
     private String name;
 
-    private Time expiration;
+    private String expiration;
 
     private ArrayList<Work> workArrayList;
 
