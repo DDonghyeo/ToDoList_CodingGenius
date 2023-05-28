@@ -24,7 +24,7 @@ public class WorkController {
     @Autowired
     WorkService workService;
 
-    @PostMapping("/")
+    @PostMapping("")
     @ApiOperation(value = "작업 생성", notes = "Request : Request Header에 Authorization : token, Request Body에 todoName, workName, memo를 담아서 보내면 작업이 생성됨\nResponse : Https status 200")
     public ResponseEntity<?> createWork(HttpServletRequest httpServletRequest, @RequestBody WorkRequestDto workRequestDto){
         try{
@@ -49,7 +49,7 @@ public class WorkController {
         return null;
     }
 
-    @PutMapping("/")
+    @PutMapping("")
     @ApiOperation(value = "작업 업데이트", notes = "Request : Request Header에 Authorization : token, Request Body에 todoName, oldName, newName, memo 담아서 요청\n\toldName: 수정 전 작업 이름, newName: 수정 후 작업 이름\nResponse : Https Status 200")
     public ResponseEntity<?> updateWork(HttpServletRequest httpServletRequest, @RequestBody WorkUpdateDto workUpdateDto){
         try{

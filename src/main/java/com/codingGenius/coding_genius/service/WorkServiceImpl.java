@@ -7,12 +7,16 @@ import com.codingGenius.coding_genius.dto.WorkCDDto;
 import com.codingGenius.coding_genius.dto.WorkRequestDto;
 import com.codingGenius.coding_genius.dto.WorkUpdateDto;
 import com.codingGenius.coding_genius.repository.ToDoListRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Optional;
 
+@Slf4j
 @Service
 public class WorkServiceImpl implements WorkService{
 
@@ -31,9 +35,16 @@ public class WorkServiceImpl implements WorkService{
     public void save(String email, WorkRequestDto workRequestDto){
         try{
             ToDo toDo = toDoService.findOne(email, workRequestDto.getTodoName());//work를 넣을 todo를 찾음
-            Work work = new Work(workRequestDto.getWorkName(), false, workRequestDto.getMemo());//work 생성
             ArrayList<Work> workArrayList = toDo.getWorkArrayList();
-            workArrayList.add(work);//todo의 work list에 work 추가
+            Work work = new Work(workRequestDto);//work 생성
+            log.info("todo name :"+toDo.getName());
+            if (workArrayList == null) {
+                workArrayList = new ArrayList<>();
+                workArrayList.add(work);//todo의 work list에 work 추가
+            } else {
+                workArrayList.add(work);
+            }
+            toDo.setWorkArrayList(workArrayList);
             ToDoList toDoList = toDoService.findByEmail(email);
             toDoList.getToDoArrayList().add(toDo);//todo list에 todo 추가
             toDoListRepository.save(toDoList);//중복될경우 update

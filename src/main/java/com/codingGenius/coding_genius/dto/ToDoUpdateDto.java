@@ -11,6 +11,6 @@ public class ToDoUpdateDto {
 
     private String newName;
 
-    private Time expiration;
+    private String expiration;
 
 }
