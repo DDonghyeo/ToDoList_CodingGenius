@@ -103,7 +103,8 @@ body {
 .memo-toggle-button,
 .edit-button,
 .complete-button,
-.delete-button {
+.delete-button,
+.memo-button {
   background-color: rgba(194, 193, 200, 0);
   border-style: solid;
   border-width: 0;
@@ -111,6 +112,23 @@ body {
   border-radius: 5px;
   cursor: pointer;
   margin-right: 10px;
+}
+.task-toggle-button::before,
+.memo-toggle-button::before {
+  content: '\f0dd';
+  font: var(--fa-font-solid);
+}
+.edit-button::before{
+  content: '\f303';
+  font: var(--fa-font-solid);
+}
+.delete-button::before{
+  content: '\f2ed';
+  font: var(--fa-font-solid);
+}
+.memo-button::before{
+  content: '\f31c';
+  font: var(--fa-font-solid);
 }
 
 
