@@ -62,7 +62,7 @@ public class WorkController {
         return null;
     }
 
-    @PostMapping("/delete")
+    @DeleteMapping("")
     @ApiOperation(value = "작업 삭제", notes = "Request : Request Header에 Authorization : token, Request Body에 todoName, workName 담아서 요청\nResponse : Https Status 200")
     public ResponseEntity<?> deleteWork(HttpServletRequest httpServletRequest, @RequestBody WorkCDDto workDeleteDto){
         try{
