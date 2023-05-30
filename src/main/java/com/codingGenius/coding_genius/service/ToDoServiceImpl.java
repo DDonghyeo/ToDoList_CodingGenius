@@ -116,25 +116,22 @@ public class ToDoServiceImpl implements ToDoService{
     //리포지토리에 저장
     @Override
     public void complete(String email, String todoName){
-        ToDo toDo = findOne(email, todoName);
-        if(toDo.isComplete()){
-            toDo.setComplete(false);
-        } else{
-            toDo.setComplete(true);
-        }
-
         ToDoList toDoList = findByEmail(email);
         ArrayList<ToDo> toDoArrayList = toDoList.getToDoArrayList();
         Iterator<ToDo> it = toDoArrayList.iterator();
         while(it.hasNext()){
-            if(it.next().getName().equals(todoName)){
-                it.remove();
-                toDoArrayList.add(toDo);
+            ToDo element = it.next();
+            if(element.getName().equals(todoName)){
+                if(element.isComplete()){
+                    element.setComplete(false);
+                } else{
+                    element.setComplete(true);
+                }
                 break;
             }
         }
-        toDoList.setToDoArrayList(toDoArrayList);
-        toDoListRepository.save(toDoList);
+        toDoListRepository.deleteByEmail(email);
+        toDoListRepository.save(new ToDoList(email, toDoList.getToDoArrayList()));
     }
 
 }

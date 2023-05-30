@@ -34,9 +34,8 @@ public class WorkServiceImpl implements WorkService{
             ArrayList<ToDo> toDoArrayList = toDoList.getToDoArrayList();
             ToDo toDo = toDoService.findOne(email, workRequestDto.getTodoName());
             ArrayList<Work> workArrayList = toDo.getWorkArrayList();
-            int idx = toDoArrayList.indexOf(toDo);
-            //todolist, todoarraylist, todo, workarraylist, todo의 idx 찾기
 
+            //새로운 work 생성 및 workarraylist에 추가
             Work work = new Work(workRequestDto);
             log.info("todo name :"+toDo.getName());
             if (workArrayList == null) {
@@ -45,13 +44,19 @@ public class WorkServiceImpl implements WorkService{
             } else {
                 workArrayList.add(work);
             }
-            //새로운 work 생성 및 workarraylist에 추가
 
-            toDo.setWorkArrayList(workArrayList);
-            toDoArrayList.set(idx, toDo);
-            toDoList.setToDoArrayList(toDoArrayList);
-            toDoListRepository.save(toDoList);
-            //workarraylist -> todo -> todoarraylist -> todolist 순으로 저장
+
+            Iterator<ToDo> it = toDoArrayList.iterator();
+            while(it.hasNext()){
+                ToDo element = it.next();
+                if(element.getName().equals(workRequestDto.getTodoName())){
+                    element.setWorkArrayList(workArrayList);
+                    break;
+                }
+            }
+
+            toDoListRepository.deleteByEmail(email);
+            toDoListRepository.save(new ToDoList(email,toDoArrayList));
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -112,43 +117,33 @@ public class WorkServiceImpl implements WorkService{
     @Override
     public void delete(String email, WorkCDDto workDeleteDto){
         try{
-            ToDoList toDoList = toDoService.findByEmail(email);
-            ArrayList<ToDo> toDoArrayList = toDoList.getToDoArrayList();
-            ToDo toDo = toDoService.findOne(email, workDeleteDto.getTodoName());
+            ArrayList<ToDo> toDoList = toDoListRepository.findByEmail(email).get().getToDoArrayList();
+            ToDo toDo = toDoService.findOne(email, workDeleteDto.getTodoName());//work를 넣을 todo를 찾음
             ArrayList<Work> workArrayList = toDo.getWorkArrayList();
-            int idx = toDoArrayList.indexOf(toDo);
 
-            //workname으로 work를 찾아서 workarraylist에서 삭제
+
             Iterator<Work> it = workArrayList.iterator();
-            log.info(String.valueOf(workArrayList.get(0).getName()));
-            log.info(String.valueOf(workArrayList.get(1).getName()));
+            //work save
             while(it.hasNext()){
-                if (it.next().getName().equals(workDeleteDto.getWorkName())){
+                if (it.next().getName().equals(workDeleteDto.getWorkName())) {
                     it.remove();
                     break;
                 }
             }
-            log.info(String.valueOf(workArrayList.get(0).getName()));
-            toDo.setWorkArrayList(workArrayList);
-            toDoArrayList.set(idx, toDo);//work를 삭제한 todo로 교체
 
-            /*
-            //ToDoList toDoList = toDoService.findByEmail(email);
-            //ArrayList<ToDo> toDoArrayList = toDoList.getToDoArrayList();
-            Iterator<ToDo> it2 = toDoArrayList.iterator();
-            while(it2.hasNext()){
-                ToDo element = it2.next();
-                if(element.getName().equals(workDeleteDto.getTodoName())){
-                    element.setWorkArrayList(workArrayList);
+            //todo save
+            Iterator<ToDo> todo_it = toDoList.iterator();
+            while (todo_it.hasNext()) {
+                ToDo toDo1 = todo_it.next();
+                if (toDo1.getName().equals(workDeleteDto.getTodoName())) {
+                    toDo1.setWorkArrayList(workArrayList);
                     break;
                 }
             }
-            */
 
-            toDoList.setToDoArrayList(toDoArrayList);
-            toDoListRepository.save(toDoList);//원래 있던거 지우고 저장해야하나?
+            toDoListRepository.save(new ToDoList(email, toDoList));
 
-        }catch (Exception e){
+        } catch (Exception e){
             e.printStackTrace();
         }
     }
@@ -164,33 +159,34 @@ public class WorkServiceImpl implements WorkService{
         String todoName = workCDDto.getTodoName();
         String workName = workCDDto.getWorkName();
 
-        ToDo toDo = toDoService.findOne(email, todoName);
+        ArrayList<ToDo> toDoList = toDoListRepository.findByEmail(email).get().getToDoArrayList();
+        ToDo toDo = toDoService.findOne(email, workCDDto.getTodoName());
         ArrayList<Work> workArrayList = toDo.getWorkArrayList();
+
+
         Iterator<Work> it = workArrayList.iterator();
         while(it.hasNext()){
-            Work work = it.next();
-            if (work.getName().equals(workName)){
-                if(work.isComplete()){
-                    work.setComplete(false);
-                }else{
-                    work.setComplete(true);
+            Work element = it.next();
+            if(element.getName().equals(workName)){
+                if(element.isComplete()){
+                    element.setComplete(false);
+                } else{
+                    element.setComplete(true);
                 }
                 break;
             }
         }
-        toDo.setWorkArrayList(workArrayList);
 
-        ToDoList toDoList = toDoService.findByEmail(email);
-        ArrayList<ToDo> toDoArrayList = toDoList.getToDoArrayList();
-        Iterator<ToDo> it2 = toDoArrayList.iterator();
-        while(it2.hasNext()){
-            ToDo toDo1 = it2.next();
-            if(toDo1.getName().equals(todoName)){
+        Iterator<ToDo> todo_it = toDoList.iterator();
+        while (todo_it.hasNext()) {
+            ToDo toDo1 = todo_it.next();
+            if (toDo1.getName().equals(todoName)) {
                 toDo1.setWorkArrayList(workArrayList);
                 break;
             }
         }
-        toDoList.setToDoArrayList(toDoArrayList);
-        toDoListRepository.save(toDoList);
+
+        toDoListRepository.deleteByEmail(email);
+        toDoListRepository.save(new ToDoList(email, toDoList));
     }
 }

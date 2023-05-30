@@ -67,7 +67,7 @@ public class ToDoController {
         return null;
     }
 
-    @DeleteMapping("")
+    @PostMapping("/delete")
     @CrossOrigin(origins = "*")
     @ApiOperation(value = "할 일 삭제", notes = "Request : Request Header에 Authorization : token, Request Body에 todoName 넣어서 요청\nResponse : Https Status 200")
     public ResponseEntity<?> deleteToDo(HttpServletRequest httpServletRequest, @RequestParam String name){

@@ -9,5 +9,7 @@ public interface ToDoListRepository extends MongoRepository<ToDoList, String> {
 
     public Optional<ToDoList> findByEmail(String email);
 
+    public void deleteByEmail(String email);
+
     //public void update(String email);
 }
