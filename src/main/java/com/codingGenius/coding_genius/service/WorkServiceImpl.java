@@ -33,15 +33,17 @@ public class WorkServiceImpl implements WorkService{
             ToDoList toDoList = toDoService.findByEmail(email);
             ArrayList<ToDo> toDoArrayList = toDoList.getToDoArrayList();
             ToDo toDo = toDoService.findOne(email, workRequestDto.getTodoName());
-            ArrayList<Work> workArrayList = toDo.getWorkArrayList();
+
 
             //새로운 work 생성 및 workarraylist에 추가
             Work work = new Work(workRequestDto);
             log.info("todo name :"+toDo.getName());
-            if (workArrayList == null) {
-                workArrayList = new ArrayList<>();
+            if (toDo.getWorkArrayList() == null) {
+                toDo.setWorkArrayList(new ArrayList<>());
+                ArrayList<Work> workArrayList = toDo.getWorkArrayList();
                 workArrayList.add(work);
             } else {
+                ArrayList<Work> workArrayList = toDo.getWorkArrayList();
                 workArrayList.add(work);
             }
 
