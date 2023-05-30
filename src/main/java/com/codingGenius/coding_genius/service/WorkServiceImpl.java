@@ -52,7 +52,7 @@ public class WorkServiceImpl implements WorkService{
             while(it.hasNext()){
                 ToDo element = it.next();
                 if(element.getName().equals(workRequestDto.getTodoName())){
-                    element.setWorkArrayList(workArrayList);
+                    element.setWorkArrayList(toDo.getWorkArrayList());
                     break;
                 }
             }
