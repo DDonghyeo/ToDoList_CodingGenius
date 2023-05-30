@@ -17,17 +17,17 @@ body {
   border-radius: 25px;
   background-color: #2a2b38;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   position: relative;
+  flex-direction: column;
 }
 
 .todo-list {
-  width: 483px;
-  height: 400px;
+  width: 80%;
+  height: 100%;
   background-color: #fff;
   padding-top: 20px;
-  position: absolute;
   bottom: 0;
   background-color: rgba(194, 193, 200, 0);
   border-bottom-left-radius: 25px;
@@ -39,6 +39,7 @@ body {
   justify-content: flex-start;
   flex-direction: column;
   overflow-y: hidden;
+  align-items: flex-end;
 }
 
 ::-webkit-scrollbar {
@@ -46,63 +47,57 @@ body {
   /* 크롬, 사파리, 오페라, 엣지 */
 }
 
-.task {
-  position: relative;
+.todo {
   border-radius: 25px;
   color: black;
   top: 40px;
-  height: 48px;
-  width: 483px;
+  height: 50px;
+  width: 100%;
   background-color: rgba(194, 193, 200, 1);
   margin-bottom: 7px;
 }
 
-.task-details {
+.work {
   display: block;
-  height: 48px;
-  width: 408px;
+  height: 50px;
+  width: 70%;
   border-radius: 25px;
   background-color: rgba(194, 193, 200, 1);
-  position: relative;
   margin-bottom: 7px;
 }
 
-.task-details.active {
+.todo-details.active {
   margin-top: 15px;
   display: block;
   position: absolute;
   right: 0;
 }
 
-.task-memo {
-  display: block;
-  height: 35px;
-  width: 357px;
+.work-memo {
+  height: 35px; 
+  width: 50%;
   border-radius: 25px;
   background-color: rgba(194, 193, 200, 1);
+  margin-bottom: 7px;
 }
 
-.task-memo.active {
+.work-memo.active {
   margin-top: 15px;
   display: block;
   position: absolute;
   right: 0;
 }
 
-.task-header,
-.task-details-header,
-.task-memo-header {
+.todo-header,
+.work-details-header,
+.work-memo-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   border-radius: 25px;
-  height: 100%;
   padding-left: 35px;
-}
-
-.task-header span,
-.task-details-header span {
-  flex-grow: 1;
+  height: 100%;
+  justify-content: space-between;
+  align-content: center;
 }
 
 .task-toggle-button,
@@ -110,6 +105,7 @@ body {
 .edit-button,
 .complete-button,
 .delete-button,
+.add-button,
 .memo-button {
   background-color: rgba(194, 193, 200, 0);
   border-style: solid;
@@ -117,16 +113,9 @@ body {
   color: black;
   border-radius: 5px;
   cursor: pointer;
-  margin-right: 10px;
+  margin-right: 10px;  
 }
-
-.task-toggle-button::before,
-.memo-toggle-button::before {
-  content: '\f0dd';
-  font: var(--fa-font-solid);
-  font-size: 2rem;
-}
-
+/* 
 .edit-button::before {
   content: '\f303';
   font: var(--fa-font-solid);
@@ -140,25 +129,24 @@ body {
 .memo-button::before {
   content: '\f31c';
   font: var(--fa-font-solid);
-}
+} */
 
-.create-task-button {
+.create-todo-button {
   position: absolute;
   background-color: rgba(194, 193, 200, 0);
   height: 30px;
   right: 10px;
 }
 
-.task-name {
+.todo-name {
   display: inline-block;
-  font-size: 17px;
+  font-size: 20px;
 }
 
-.task-exp {
-  position: absolute;
-  left: 100px;
-  font-size: 10px;
+.todo-exp {
+  font-size: 14px;
   padding-top: 7px;
+  margin-left: 15px;
 }
 
 /*
@@ -167,3 +155,11 @@ body {
   radius: 25px;
   background-color: rgba(194, 193, 200, 1);
 */
+
+.complete{
+  background-color: #FFEBA7;
+}
+
+.complete_btn{
+  color: #13E829;
+}

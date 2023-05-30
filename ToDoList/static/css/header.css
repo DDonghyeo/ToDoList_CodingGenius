@@ -11,17 +11,6 @@ body {
     background-size: 4%;
 }
 
-.box {
-    width: 779px;
-    height: 531px;
-    border-radius: 25px;
-    background-color: #2a2b38;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-
 .account-header {
     display: flex;
     flex-direction: row;
@@ -29,15 +18,15 @@ body {
 }
 
 .header {
-    width: 779px;
-    height: 130px;
+    width: 100%;
+    height: auto;
     position: relative;
-    top: -35%;
     bottom: 0;
     background-color: rgba(194, 193, 200, 0);
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-top: 30px;
 }
 
 .account-title {
