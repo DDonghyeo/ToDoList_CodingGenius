@@ -46,7 +46,7 @@ function load_todo() {
 
     for (var i = 0; i < data.length; i++) {
       var obj = data[i];
-      if (obj.complete) {
+      if (obj.complete) { //complete
         target.innerHTML += `
         <div class="todo complete">
           <div class="todo-header">
@@ -55,14 +55,14 @@ function load_todo() {
               <span class="todo-exp">${obj.expiration}</span>
             </div>
             <div class="tool_box">
-              <button class="edit-button fa-solid fa-pencil" ></button>
-              <button class="fa-regular fa-circle-check complete_btn" onclick="complete_todo(this)"></button>
-              <button class="delete-button fa-solid fa-trash-can" onclick="delete_todo(this)"></button>
-              <buttton class="fa-solid fa-plus add-button" onlcick="add_todo(this)"></button>
+              <button class="edit-button fa-solid fa-pencil fa-lg" ></button>
+              <button class="complete-button fa-regular fa-circle-check complete_btn fa-lg" onclick="complete_todo(this)"></button>
+              <button class="delete-button fa-solid fa-trash-can fa-lg" onclick="delete_todo(this)"></button>
+              <buttton class="fa-solid fa-plus add-button fa-lg" onclick="add_work(this)"></button>
             </div>
           </div>
         `;
-      } else {
+      } else { // incomplete
         target.innerHTML += `
         <div class="todo">
           <div class="todo-header">
@@ -71,16 +71,16 @@ function load_todo() {
               <span class="todo-exp">${obj.expiration}</span>
             </div>
             <div class="tool_box">
-              <button class="edit-button fa-solid fa-pencil" onclick = "edit_todo(this)"></button>
-              <button class="fa-regular fa-circle-check complete-button" onclick="complete_todo(this)"></button>
-              <button class="delete-button fa-solid fa-trash-can" onclick="delete_todo(this)"></button>
-              <buttton class="fa-solid fa-plus add-button" onlcick="add_todo(this)"></button>
+              <button class="edit-button fa-solid fa-pencil fa-lg" onclick = "edit_todo(this)"></button>
+              <button class="complete-button fa-regular fa-circle-check fa-lg" onclick="complete_todo(this)"></button>
+              <button class="delete-button fa-solid fa-trash-can fa-lg" onclick="delete_todo(this)"></button>
+              <buttton class="fa-solid fa-plus add-button fa-lg" onclick="add_work(this)"></button>
             </div>
           </div>
         `;
       }
       var worklist = obj.workArrayList;
-      if (worklist != null) {
+      if (worklist != null) { //complete
         for (var j = 0; j < worklist.length; j++) {
           if(worklist[j].complete){
             target.innerHTML += `
@@ -88,9 +88,9 @@ function load_todo() {
               <div class="work-details-header">
                 <span>${worklist[j].name}</span>
                 <div class="tool_box" >
-                  <button class="memo-button"></button>
-                  <button class="complete-button"><span class="fa-regular fa-circle-check" style="color: #000000;"></span></button>
-                  <button class="delete-button"></button>
+                  <button class="memo-button fa-solid fa-file-pen"></button>
+                  <button class="fa-circle-check complete-button complete_btn fa-lg">
+                  <button class="delete-button fa-solid fa-trash-can fa-lg"></button>
                 </div>
               </div>
             </div >
@@ -104,15 +104,15 @@ function load_todo() {
             </div >
             
               `;
-          } else{
+          } else{ //incomplete
             target.innerHTML += `
             <div class="work">
               <div class="work-details-header">
                 <span>${worklist[j].name}</span>
                 <div class="tool_box" >
-                  <button class="memo-button"></button>
-                  <button class="complete-button"><span class="fa-regular fa-circle-check" style="color: #000000;"></span></button>
-                  <button class="delete-button"></button>
+                  <button class="memo-button fa-solid fa-file-pen"></button>
+                  <button class="fa-circle-check complete-button fa-lg"><span class="fa-regular fa-circle-check" style="color: #000000;"></span></button>
+                  <button class="delete-button fa-solid fa-trash-can fa-lg"></button>
                 </div>
               </div>
             </div >
@@ -139,29 +139,6 @@ function load_todo() {
 }
 
 load_todo();
-
-
-
-
-// document.addEventListener('DOMContentLoaded', function () {
-//   const taskToggleButtons = document.querySelectorAll('.task-toggle-button');
-//   const memoToggleButtons = document.querySelectorAll('.memo-toggle-button');
-
-//   taskToggleButtons.forEach(function (button) {
-//     button.addEventListener('click', function () {
-//       const details = this.parentNode.parentNode.querySelector('.task-details');
-//       details.classList.toggle('active');
-//     });
-//   });
-
-//   memoToggleButtons.forEach(function (button) {
-//     button.addEventListener('click', function () {
-//       const memo = this.parentNode.parentNode.parentNode.parentNode.querySelector('.task-memo');
-//       memo.classList.toggle('active');
-//     });
-//   });
-// });
-
 
 function delete_todo(e){
   var name = e.parentNode.parentNode.getElementsByClassName('todo_info')[0].getElementsByClassName('todo-name')[0].innerText;
@@ -222,7 +199,6 @@ function edit_todo(e){
 
 function edit_complete_todo(e){
   parent = e.parentNode.parentNode.getElementsByClassName('todo_info')[0].getElementsByTagName("input");
-  console.log("old name"+e.getAttribute("oldname"));
   var old_name = e.getAttribute("oldname");
   var new_name = parent[0].value;
   var new_exp = parent[1].value;
@@ -244,6 +220,88 @@ function edit_complete_todo(e){
   }
 }
 
-function add_todo(e){
+function add_to_do(){
+  var newElement = document.createElement('div');
+  newElement.className = "todo";
+  var htmlString = `
+  <div class="todo-header">
+    <div class="todo_info">
+      <input class="todo-name" placeholder="새 할 일 이름"></input>
+      <input class="todo-exp"placeholder="날짜" ></input>
+    </div>
+    <div class="tool_box">
+      <button class="edit-button fa-solid fa-check fa-lg" onclick="add_to_do_complete(this)"></button>
+      <button class="delete-button fa-solid fa-trash-can fa-lg"></button>
+    </div>
+  `;
+  newElement.innerHTML = htmlString;
 
+  document.getElementsByClassName('todo-list')[0].appendChild(newElement);
+}
+
+function add_to_do_complete(e){
+  var parent = e.parentNode.parentNode.getElementsByClassName('todo_info')[0];
+  var name = parent.getElementsByClassName('todo-name')[0].value;
+  var exp = parent.getElementsByClassName('todo-exp')[0].value;
+
+
+  const request = new XMLHttpRequest();
+  request.open('POST', "https://geniustodo.shop/todo", false);
+  request.setRequestHeader('Content-type', 'application/json');
+  request.setRequestHeader('Authorization', sessionStorage.getItem('Authorization'));
+  const requestBody = { name: name, expiration: exp};
+  const requestBodyString = JSON.stringify(requestBody);
+  request.send(requestBodyString);
+
+  if (request.status === 200) {
+    init_todo();
+    load_todo();
+  }else{
+    alert("추가 실패");
+    return
+  }
+}
+
+function add_work(e){
+  var todoName = e.parentNode.parentNode.getElementsByClassName('todo_info')[0].getElementsByClassName('todo-name')[0].innerText;
+  var newElement = document.createElement('div');
+  newElement.className = "work";
+  newElement.setAttribute("todoName", todoName);
+  var htmlString = `
+  <div class="work-details-header">
+    <input placeholder="새 작업 이름">
+    <input placeholder="메모">
+    <div class="tool_box" >
+      <button class="edit-button fa-solid fa-check fa-lg" onclick="add_work_complete(this)"></button>
+      <button class="delete-button fa-solid fa-trash-can fa-lg"></button>
+    </div>
+  </div>
+  `;
+  newElement.innerHTML = htmlString;
+  
+
+  e.parentNode.parentNode.parentNode.insertAdjacentElement("afterend", newElement);
+}
+
+function add_work_complete(e){
+  var todoName = e.parentNode.parentNode.parentNode.getAttribute("todoName");
+  var parent = e.parentNode.parentNode.getElementsByTagName('input');
+  var workName = parent[0].value;
+  var memo = parent[1].value;
+
+  const request = new XMLHttpRequest();
+  request.open('POST', "https://geniustodo.shop/work", false);
+  request.setRequestHeader('Content-type', 'application/json');
+  request.setRequestHeader('Authorization', sessionStorage.getItem('Authorization'));
+  const requestBody = { todoName: todoName, workName: workName, memo: memo};
+  const requestBodyString = JSON.stringify(requestBody);
+  request.send(requestBodyString);
+
+  if (request.status === 200) {
+    init_todo();
+    load_todo();
+  }else{
+    alert("작업 생성 실패");
+    return
+  }
 }

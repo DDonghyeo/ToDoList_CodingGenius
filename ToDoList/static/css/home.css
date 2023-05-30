@@ -42,6 +42,10 @@ body {
   align-items: flex-end;
 }
 
+.tool_box{
+  margin-right: 10px;
+}
+
 ::-webkit-scrollbar {
   display: none;
   /* 크롬, 사파리, 오페라, 엣지 */
@@ -115,28 +119,6 @@ body {
   cursor: pointer;
   margin-right: 10px;  
 }
-/* 
-.edit-button::before {
-  content: '\f303';
-  font: var(--fa-font-solid);
-}
-
-.delete-button::before {
-  content: '\f2ed';
-  font: var(--fa-font-solid);
-}
-
-.memo-button::before {
-  content: '\f31c';
-  font: var(--fa-font-solid);
-} */
-
-.create-todo-button {
-  position: absolute;
-  background-color: rgba(194, 193, 200, 0);
-  height: 30px;
-  right: 10px;
-}
 
 .todo-name {
   display: inline-block;
@@ -149,17 +131,40 @@ body {
   margin-left: 15px;
 }
 
-/*
-  height: 48px:
-  width: 483px:
-  radius: 25px;
-  background-color: rgba(194, 193, 200, 1);
-*/
-
 .complete{
   background-color: #FFEBA7;
 }
 
 .complete_btn{
   color: #13E829;
+}
+
+.options{
+  display: flex;
+  width: 80%;
+  justify-content: space-between;
+  color: #FFEBA7;
+  margin-bottom: 15px;
+}
+
+.sort{
+  position: relative;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  border-radius: 25px;
+  padding: 5px;
+  transition-duration: 0.5s;
+}
+
+.create-todo-button{
+  position: relative;
+  right: 0;
+  cursor: pointer;
+}
+
+.work-details-header input {
+  width: 30%;
 }
