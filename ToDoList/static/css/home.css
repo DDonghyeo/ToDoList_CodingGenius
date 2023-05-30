@@ -9,11 +9,12 @@ body {
   background-position: center;
   background-repeat: repeat;
   background-size: 4%;
+  padding: 10%;
 }
 
 .box {
   width: 779px;
-  height: 531px;
+  height: auto;
   border-radius: 25px;
   background-color: #2a2b38;
   display: flex;
@@ -21,6 +22,8 @@ body {
   align-items: center;
   position: relative;
   flex-direction: column;
+  overflow: auto;
+  margin-top: 60px;
 }
 
 .todo-list {
@@ -38,8 +41,9 @@ body {
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  overflow-y: hidden;
+  overflow-y: auto;
   align-items: flex-end;
+  margin-bottom: 40px;
 }
 
 .tool_box{

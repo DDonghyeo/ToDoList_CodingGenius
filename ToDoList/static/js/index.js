@@ -1,4 +1,6 @@
 function email_validation_request() {
+    document.getElementById('email_vali_check_btn').innerText = "Sending...";
+
     var email = document.getElementById('signup-email').getElementsByClassName('form-style')[0].value;
     //정보 전송
     const email_request = new XMLHttpRequest();
@@ -18,6 +20,7 @@ function email_validation_request() {
         document.getElementById('signup-pw').style.display = "none";
     } else {
         alert("메일 전송 요청 실패");
+        document.getElementById('email_vali_check_btn').innerText = "submit";
     }
 
 

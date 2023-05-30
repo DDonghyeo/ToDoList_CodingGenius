@@ -40,7 +40,6 @@ function load_todo() {
   if (request.status === 200) {
     var response = request.responseText;
     var data = JSON.parse(response);
-    console.log(JSON.parse(response));
 
     var target = document.getElementsByClassName('todo-list')[0];
 
@@ -84,17 +83,17 @@ function load_todo() {
         for (var j = 0; j < worklist.length; j++) {
           if(worklist[j].complete){
             target.innerHTML += `
-            <div class="work complete">
+            <div class="work complete" parent = "${obj.name}">
               <div class="work-details-header">
                 <span>${worklist[j].name}</span>
                 <div class="tool_box" >
                   <button class="memo-button fa-solid fa-file-pen"></button>
-                  <button class="fa-circle-check complete-button complete_btn fa-lg">
-                  <button class="delete-button fa-solid fa-trash-can fa-lg"></button>
+                  <button class="fa-circle-check fa-regular complete-button complete_btn fa-lg" onclick="complete_work(this)">
+                  <button class="delete-button fa-solid fa-trash-can fa-lg" onclick="delete_work(this)"></button>
                 </div>
               </div>
             </div >
-            <div class="work-memo">
+            <div class="work-memo complete">
               <div class="work-memo-header">
                 <span>${worklist[j].memo}</span>
                 <div class = "tool_box">
@@ -106,13 +105,13 @@ function load_todo() {
               `;
           } else{ //incomplete
             target.innerHTML += `
-            <div class="work">
+            <div class="work" parent = "${obj.name}">
               <div class="work-details-header">
                 <span>${worklist[j].name}</span>
                 <div class="tool_box" >
                   <button class="memo-button fa-solid fa-file-pen"></button>
-                  <button class="fa-circle-check complete-button fa-lg"><span class="fa-regular fa-circle-check" style="color: #000000;"></span></button>
-                  <button class="delete-button fa-solid fa-trash-can fa-lg"></button>
+                  <button class="fa-circle-check fa-regular complete-button fa-lg" onclick="complete_work(this)"></button>
+                  <button class="delete-button fa-solid fa-trash-can fa-lg" onclick="delete_work(this)"></button>
                 </div>
               </div>
             </div >
@@ -143,8 +142,8 @@ load_todo();
 function delete_todo(e){
   var name = e.parentNode.parentNode.getElementsByClassName('todo_info')[0].getElementsByClassName('todo-name')[0].innerText;
   const request = new XMLHttpRequest();
-  var url = "https://geniustodo.shop/todo?name="+name;
-  request.open('DELETE', url, false);
+  var url = "https://geniustodo.shop/todo/delete?name="+name;
+  request.open('POST', url, false);
   request.setRequestHeader('Content-type', 'application/json');
   request.setRequestHeader('Authorization', sessionStorage.getItem('Authorization'));
   request.send();
@@ -174,9 +173,6 @@ function edit_todo(e){
   parent = e.parentNode.parentNode.getElementsByClassName('todo_info')[0];
   var name = parent.getElementsByClassName('todo-name')[0];
   var exp = parent.getElementsByClassName('todo-exp')[0];
-
-  console.log(name);
-  console.log(exp);
 
   //change span -> input
   var inputElement = document.createElement("input"); 
@@ -304,4 +300,48 @@ function add_work_complete(e){
     alert("작업 생성 실패");
     return
   }
+}
+
+function complete_work(e){
+  var todoName = e.parentNode.parentNode.parentNode.getAttribute('parent');
+  var workName = e.parentNode.parentNode.getElementsByTagName('span')[0].innerText;
+
+  const request = new XMLHttpRequest();
+  request.open('POST', "https://geniustodo.shop/work/complete", false);
+  request.setRequestHeader('Content-type', 'application/json');
+  request.setRequestHeader('Authorization', sessionStorage.getItem('Authorization'));
+  const requestBody = { todoName: todoName, workName: workName};
+  const requestBodyString = JSON.stringify(requestBody);
+  request.send(requestBodyString);
+
+  if (request.status === 200) {
+    init_todo();
+    load_todo();
+  }else{
+    alert("완료 표시 실패");
+    return
+  }
+
+}
+
+function delete_work(e){
+  var todoName = e.parentNode.parentNode.parentNode.getAttribute('parent');
+  var workName = e.parentNode.parentNode.getElementsByTagName('span')[0].innerText;
+
+  const request = new XMLHttpRequest();
+  request.open('POST', "https://geniustodo.shop/work/delete", false);
+  request.setRequestHeader('Content-type', 'application/json');
+  request.setRequestHeader('Authorization', sessionStorage.getItem('Authorization'));
+  const requestBody = { todoName: todoName, workName: workName};
+  const requestBodyString = JSON.stringify(requestBody);
+  request.send(requestBodyString);
+
+  if (request.status === 200) {
+    init_todo();
+    load_todo();
+  }else{
+    alert("완료 표시 실패");
+    return
+  }
+
 }
