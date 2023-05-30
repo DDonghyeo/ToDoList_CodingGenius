@@ -89,12 +89,6 @@ body {
   height: 100%;
   padding-left: 50px;
 }
-.task-header:hover,
-.task-details-header:hover,
-.task-memo-header:hover
- {
-  background-color: rgba(255, 235, 167, 1);
-}
 .task-header span,
 .task-details-header span {
   flex-grow: 1;
@@ -130,85 +124,6 @@ body {
   content: '\f31c';
   font: var(--fa-font-solid);
 }
-
-
-
-
-/*
-.box {
-    width: 779px;
-    height: 531px;
-    border-radius: 25px;
-    background-color: #2a2b38;
-}
-
-.task {
-  position: relative;
-  border-radius: 25px;
-  color: black;
-  padding: 20px;
-  height: 48px;
-  width: 483px;
-  background-color: rgba(194, 193, 200, 1);
-}
-
-.task-header {
-  position: relative;
-  justify-content: space-between;
-  display: flex;
-  align-items: center;
-}
-
-.task-toggle-button,
-.memo-toggle-button {
-  border: none;
-  background-color: rgba(194, 193, 200, 1);
-  color: black;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-left: 10px;
-}
-
-.task-details {
-  position: relative;
-  display: none;
-  height: 48px:
-  width: 483px:
-  border-radius: 25px;
-  background-color: rgba(194, 193, 200, 1);
-}
-
-.task-details.active {
-  position: relative;
-  display: block;
-  height: 48px:
-  width: 483px:
-  border-radius: 25px;
-  background-color: rgba(194, 193, 200, 1);
-}
-
-
-.task-memo {
-  position: relative;
-  display: none;
-  padding: 10px;
-  radius: 25px;
-  color: black;
-  height: 48px:
-  width: 483px:
-  background-color: rgba(194, 193, 200, 1);
-}
-
-.task-memo.active {
-  position: relative;
-  display: block;
-  height: 48px:
-  width: 483px:
-  border-radius: 25px;
-  background-color: rgba(194, 193, 200, 1);
-
-}*/
 
 
 
