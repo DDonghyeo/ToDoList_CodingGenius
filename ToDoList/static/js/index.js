@@ -76,6 +76,7 @@ function submit_sign_up() {
 }
 
 function log_in() {
+    document.getElementById("log_in").innerText = "Loging in ...";
     var email = document.getElementById('login-email').value;
     var pw = document.getElementById('login-pw').value;
     //정보 전송
@@ -92,6 +93,7 @@ function log_in() {
         window.location.replace('home');
     } else {
         alert('아이디 또는 비밀번호가 맞지 않습니다.');
+        document.getElementById("log_in").innerText = "log in";
     }
 
 }

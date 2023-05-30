@@ -45,8 +45,6 @@ function load_todo() {
     var target = document.getElementsByClassName('todo-list')[0];
 
     for (var i = 0; i < data.length; i++) {
-      console.log(i);
-      console.log("create todo");
       var obj = data[i];
       if (obj.complete) {
         target.innerHTML += `
@@ -82,10 +80,8 @@ function load_todo() {
         `;
       }
       var worklist = obj.workArrayList;
-      console.log(worklist);
       if (worklist != null) {
         for (var j = 0; j < worklist.length; j++) {
-          console.log("create work")
           if(worklist[j].complete){
             target.innerHTML += `
             <div class="work complete">
@@ -171,7 +167,6 @@ function delete_todo(e){
   var name = e.parentNode.parentNode.getElementsByClassName('todo_info')[0].getElementsByClassName('todo-name')[0].innerText;
   const request = new XMLHttpRequest();
   var url = "https://geniustodo.shop/todo?name="+name;
-  console.log(url);
   request.open('DELETE', url, false);
   request.setRequestHeader('Content-type', 'application/json');
   request.setRequestHeader('Authorization', sessionStorage.getItem('Authorization'));
@@ -187,7 +182,6 @@ function complete_todo(e){
   var name = e.parentNode.parentNode.getElementsByClassName('todo_info')[0].getElementsByClassName('todo-name')[0].innerText;
   const request = new XMLHttpRequest();
   var url = "https://geniustodo.shop/todo/complete?name="+name;
-  console.log(url);
   request.open('POST', url, false);
   request.setRequestHeader('Content-type', 'application/json');
   request.setRequestHeader('Authorization', sessionStorage.getItem('Authorization'));
@@ -223,12 +217,13 @@ function edit_todo(e){
   e.classList.add("fa-check");
   e.removeAttribute("onclick");
   e.setAttribute("onclick", "edit_complete_todo(this)");
-  e.setAttribute("oldname", name);
+  e.setAttribute("oldname", name.innerHTML);
 }
 
 function edit_complete_todo(e){
   parent = e.parentNode.parentNode.getElementsByClassName('todo_info')[0].getElementsByTagName("input");
-  var old_name = e.getAttribute("oldname").value;
+  console.log("old name"+e.getAttribute("oldname"));
+  var old_name = e.getAttribute("oldname");
   var new_name = parent[0].value;
   var new_exp = parent[1].value;
   
