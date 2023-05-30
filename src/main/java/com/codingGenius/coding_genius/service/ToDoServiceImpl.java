@@ -8,7 +8,6 @@ import com.codingGenius.coding_genius.repository.ToDoListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Optional;
@@ -63,12 +62,12 @@ public class ToDoServiceImpl implements ToDoService{
                 Iterator<ToDo> it = toDoArrayList.iterator();
                 while(it.hasNext()){
                     ToDo toDo = it.next();
-                    if(toDo.getName().equals(toDoUpdateDto.getOldName())){//여기서 업데이트하고 리포지토리 세이브
+                    if(toDo.getName().equals(toDoUpdateDto.getOldName())){
                         //todoarraylist에서 todo를 변경하고 todoarraylist를 email과 함께 todolist에 넣는다.
+                        int idx = toDoArrayList.indexOf(toDo);//인덱스 찾고
                         toDo.setName(toDoUpdateDto.getNewName());
                         toDo.setExpiration(toDoUpdateDto.getExpiration());
-                        it.remove();
-                        toDoArrayList.add(toDo);
+                        toDoArrayList.set(idx, toDo);//set
                         toDoListRepository.save(new ToDoList(email, toDoArrayList));
                         break;
                     }
@@ -90,6 +89,7 @@ public class ToDoServiceImpl implements ToDoService{
                     if(it.next().getName().equals(name)){
                         it.remove();
                         toDoListRepository.save(new ToDoList(email, toDoArrayList));
+                        break;
                     }
                 }
             }

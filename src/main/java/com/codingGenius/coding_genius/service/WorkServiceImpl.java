@@ -27,37 +27,31 @@ public class WorkServiceImpl implements WorkService{
     @Autowired
     ToDoService toDoService;
 
-    //email, todoName, workName, complete 받아옴
-    //email, todoName으로 work를 넣을 todo를 찾음
-    //todo의 work list에 work 추가
-    //todolistrepository.save
-    //email의 todo list에 todo 추가
     @Override
     public void save(String email, WorkRequestDto workRequestDto){
         try{
-//            ToDo toDo = toDoService.findOne(email, workRequestDto.getTodoName());//work를 넣을 todo를 찾음
-//            ArrayList<Work> workArrayList = toDo.getWorkArrayList();
-//            Work work = new Work(workRequestDto);//work 생성
-//            if (workArrayList == null) {
-//                workArrayList = new ArrayList<>();
-//                workArrayList.add(work);//todo의 work list에 work 추가
-//            } else {
-//                workArrayList.add(work);
-//            }
-//            toDo.setWorkArrayList(workArrayList);
+            ToDoList toDoList = toDoService.findByEmail(email);
+            ArrayList<ToDo> toDoArrayList = toDoList.getToDoArrayList();
+            ToDo toDo = toDoService.findOne(email, workRequestDto.getTodoName());
+            ArrayList<Work> workArrayList = toDo.getWorkArrayList();
+            int idx = toDoArrayList.indexOf(toDo);
+            //todolist, todoarraylist, todo, workarraylist, todo의 idx 찾기
 
-            ArrayList<ToDo> toDoList = toDoListRepository.findByEmail(email).get().getToDoArrayList();
-            Iterator<ToDo> it = toDoList.iterator();
-            //Find Todo and save work array list
-            while(it.hasNext()){
-                ToDo element = it.next();
-                if (element.getName().equals(workRequestDto.getTodoName())) {
-                    element.getWorkArrayList().add(new Work(workRequestDto));
-                    break;
-                }
+            Work work = new Work(workRequestDto);
+            log.info("todo name :"+toDo.getName());
+            if (workArrayList == null) {
+                workArrayList = new ArrayList<>();
+                workArrayList.add(work);
+            } else {
+                workArrayList.add(work);
             }
+            //새로운 work 생성 및 workarraylist에 추가
 
-            toDoListRepository.save(new ToDoList(email, toDoList));
+            toDo.setWorkArrayList(workArrayList);
+            toDoArrayList.set(idx, toDo);
+            toDoList.setToDoArrayList(toDoArrayList);
+            toDoListRepository.save(toDoList);
+            //workarraylist -> todo -> todoarraylist -> todolist 순으로 저장
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -83,6 +77,8 @@ public class WorkServiceImpl implements WorkService{
             ToDo toDo = toDoService.findOne(email, workUpdateDto.getTodoName());//work를 넣을 todo를 찾음
             ArrayList<Work> workArrayList = toDo.getWorkArrayList();
             Iterator<Work> it = workArrayList.iterator();
+            log.info(String.valueOf(workArrayList.get(0)));
+
             //work save
             while(it.hasNext()){
                 Work element = it.next();
@@ -100,6 +96,7 @@ public class WorkServiceImpl implements WorkService{
                 ToDo toDo1 = todo_it.next();
                 if (toDo1.getName().equals(workUpdateDto.getTodoName())) {
                     toDo1.setWorkArrayList(workArrayList);
+                    break;
                 }
             }
 
@@ -115,8 +112,13 @@ public class WorkServiceImpl implements WorkService{
     @Override
     public void delete(String email, WorkCDDto workDeleteDto){
         try{
+            ToDoList toDoList = toDoService.findByEmail(email);
+            ArrayList<ToDo> toDoArrayList = toDoList.getToDoArrayList();
             ToDo toDo = toDoService.findOne(email, workDeleteDto.getTodoName());
             ArrayList<Work> workArrayList = toDo.getWorkArrayList();
+            int idx = toDoArrayList.indexOf(toDo);
+
+            //workname으로 work를 찾아서 workarraylist에서 삭제
             Iterator<Work> it = workArrayList.iterator();
             log.info(String.valueOf(workArrayList.get(0).getName()));
             log.info(String.valueOf(workArrayList.get(1).getName()));
@@ -127,10 +129,12 @@ public class WorkServiceImpl implements WorkService{
                 }
             }
             log.info(String.valueOf(workArrayList.get(0).getName()));
-//            toDo.setWorkArrayList(workArrayList);
+            toDo.setWorkArrayList(workArrayList);
+            toDoArrayList.set(idx, toDo);//work를 삭제한 todo로 교체
 
-            ToDoList toDoList = toDoService.findByEmail(email);
-            ArrayList<ToDo> toDoArrayList = toDoList.getToDoArrayList();
+            /*
+            //ToDoList toDoList = toDoService.findByEmail(email);
+            //ArrayList<ToDo> toDoArrayList = toDoList.getToDoArrayList();
             Iterator<ToDo> it2 = toDoArrayList.iterator();
             while(it2.hasNext()){
                 ToDo element = it2.next();
@@ -139,8 +143,10 @@ public class WorkServiceImpl implements WorkService{
                     break;
                 }
             }
+            */
+
             toDoList.setToDoArrayList(toDoArrayList);
-            toDoListRepository.save(toDoList);
+            toDoListRepository.save(toDoList);//원래 있던거 지우고 저장해야하나?
 
         }catch (Exception e){
             e.printStackTrace();
