@@ -25,6 +25,7 @@ public class WorkController {
     WorkService workService;
 
     @PostMapping("")
+    @CrossOrigin(origins = "*")
     @ApiOperation(value = "작업 생성", notes = "Request : Request Header에 Authorization : token, Request Body에 todoName, workName, memo를 담아서 보내면 작업이 생성됨\nResponse : Https status 200")
     public ResponseEntity<?> createWork(HttpServletRequest httpServletRequest, @RequestBody WorkRequestDto workRequestDto){
         try{
@@ -50,6 +51,7 @@ public class WorkController {
 //    }
 
     @PutMapping("")
+    @CrossOrigin(origins = "*")
     @ApiOperation(value = "작업 업데이트", notes = "Request : Request Header에 Authorization : token, Request Body에 todoName, oldName, newName, memo 담아서 요청\n\toldName: 수정 전 작업 이름, newName: 수정 후 작업 이름\nResponse : Https Status 200")
     public ResponseEntity<?> updateWork(HttpServletRequest httpServletRequest, @RequestBody WorkUpdateDto workUpdateDto){
         try{
@@ -63,6 +65,7 @@ public class WorkController {
     }
 
     @PostMapping("/delete")
+    @CrossOrigin(origins = "*")
     @ApiOperation(value = "작업 삭제", notes = "Request : Request Header에 Authorization : token, Request Body에 todoName, workName 담아서 요청\nResponse : Https Status 200")
     public ResponseEntity<?> deleteWork(HttpServletRequest httpServletRequest, @RequestBody WorkCDDto workDeleteDto){
         try{
@@ -76,6 +79,7 @@ public class WorkController {
     }
 
     @PostMapping("/complete")
+    @CrossOrigin(origins = "*")
     @ApiOperation(value = "작업 완료 표시 변경", notes = "Request : Request Header에 Authorization : token, Request Body에 todoName, workName 담아서 요청\nResponse : Https Status 200")
     public ResponseEntity<?> completeWork(HttpServletRequest httpServletRequest, @RequestBody WorkCDDto workCDDto){
         try{
