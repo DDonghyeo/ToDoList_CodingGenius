@@ -38,7 +38,7 @@ public class WorkServiceImpl implements WorkService{
             //새로운 work 생성 및 workarraylist에 추가
             Work work = new Work(workRequestDto);
             log.info("todo name :"+toDo.getName());
-            if (toDo.getWorkArrayList().isEmpty()) {
+            if (toDo.isWorkNull()) {
                 toDo.setWorkArrayList(new ArrayList<>());
                 ArrayList<Work> workArrayList = toDo.getWorkArrayList();
                 workArrayList.add(work);

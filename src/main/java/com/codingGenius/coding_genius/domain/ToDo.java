@@ -28,4 +28,8 @@ public class ToDo {
         this.expiration = toDoRequestDto.getExpiration();
     }
 
+    public boolean isWorkNull() {
+        return workArrayList == null;
+    }
+
 }
