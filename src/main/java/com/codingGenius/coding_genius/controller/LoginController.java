@@ -20,6 +20,7 @@ public class LoginController {
     LoginService loginService;
 
     @PostMapping("/email")
+    @CrossOrigin(origins = "*")
     @ApiOperation(value = "이메일 검사 요청", notes = "Request : Request Body에 email을 담아서 보내면 해당 이메일로 전송 메세지가 전송됨 \n Response : Https Status 200")
     public ResponseEntity<?> requestEmailValidation(@RequestParam String email) {
         try {
@@ -31,6 +32,7 @@ public class LoginController {
     }
 
     @GetMapping("/email")
+    @CrossOrigin(origins = "*")
     @ApiOperation(value = "이메일 유효성 확인", notes = "Request Param : code , email \n 성공 / 실패는 Response Status로 구분함. 성공했을 경우 :200, 실패했을 경우 : 204")
     public ResponseEntity<?> checkEmailValidation(@RequestParam("code") String code, @RequestParam("email") String email) {
         try {
@@ -43,6 +45,7 @@ public class LoginController {
     }
 
     @PostMapping("")
+    @CrossOrigin(origins = "*")
     @ApiOperation(value = "유저 일반 로그인 요청", notes = "Request : \n \t Request Body : loginRequestDto  - email,password \n passwordResponse : \n\t (String) Token")
     public ResponseEntity<?> userLogin(@RequestBody LoginRequestDto loginRequestDto){
         if(loginService.userLogin(loginRequestDto.getEmail(), loginRequestDto.getPassword())){
@@ -51,6 +54,7 @@ public class LoginController {
     }
 
     @PostMapping("/register")
+    @CrossOrigin(origins = "*")
     @ApiOperation(value = "유저 회원가입", notes = "Request Body : Register Request Dto")
     public ResponseEntity<?> userRegister(@RequestBody RegisterRequestDto request){
         try {
