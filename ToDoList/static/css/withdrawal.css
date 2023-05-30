@@ -1,0 +1,22 @@
+.withdrawal-msg {
+    font-size: 30px;
+    font-weight: 300;
+}
+
+.box_withdrawal {
+    display: flex;
+    flex-direction: column;
+    width: 540px;
+    height: 531px;
+    border-radius: 25px;
+    background-color: #2a2b38;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.account_form-group-msg {
+    display: flex;
+    justify-content: center;
+}

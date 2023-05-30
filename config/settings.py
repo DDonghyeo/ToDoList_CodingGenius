@@ -125,11 +125,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/ToDoList/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'ToDoList', 'static')
-] # 현재 static 파일들이 어디에 있는지
+]  # 현재 static 파일들이 어디에 있는지
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # static 파일들을 어디에 모을건지
 
@@ -137,4 +137,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # static 파일들을 어디에 
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-

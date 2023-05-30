@@ -1,0 +1,41 @@
+.account_header {
+    position: relative;
+    top: -200px;
+    width: 82%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgb(181, 179, 187);
+    font-size: large;
+}
+
+.account_header-title {
+    font-size: 33px;
+}
+
+.account_header-icon {
+    font-size: 40px;
+}
+
+.input-icon {
+    position: relative;
+}
+
+.input-icon:before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-image: url(download/user-regular.svg);
+    background-size: 16px;
+    /* 이미지의 크기에 맞게 조정합니다. */
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+}
+
+.form-style {
+    padding-left: 30px;
+    /* 아이콘과 텍스트 사이의 간격을 조정합니다. */
+}

@@ -1,0 +1,45 @@
+.box_account {
+    display: flex;
+    flex-direction: column;
+    width: 540px;
+    height: 531px;
+    border-radius: 25px;
+    background-color: #2a2b38;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.account_header {
+    position: relative;
+    top: -35%;
+    width: 82%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgb(181, 179, 187);
+    font-size: large;
+}
+
+.account_header-title {
+    font-size: 33px;
+}
+
+.account_header-icon {
+    text-decoration: none;
+    color: rgb(181, 179, 187);
+    font-size: 40px;
+}
+
+.account_form-group {
+    position: absolute;
+    width: 80%;
+    padding: 0 35px;
+    top: 30%;
+    display: block;
+}
+
+.withdrawal_btn {
+    margin-right: 10px;
+}

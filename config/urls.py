@@ -20,6 +20,9 @@ import ToDoList.views
 
 urlpatterns = {
     path('admin/', admin.site.urls),
-    path('', ToDoList.views.index, name ='index'),
-    path('home', ToDoList.views.home, name ='home'),
+    path('', ToDoList.views.index, name='index'),
+    path('home', ToDoList.views.home, name='home'),
+    path('account', ToDoList.views.account, name='account'),
+    path('header', ToDoList.views.header, name='header'),
+    path('withdrawal', ToDoList.views.withdrawal, name='withdrawal'),
 }
