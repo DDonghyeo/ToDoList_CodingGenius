@@ -2,6 +2,9 @@ var modifybtn = document.getElementById('modify_btn');
 var modifyCompleteLink = document.getElementById('modify_complete');
 
 modifybtn.addEventListener('click', function () {
+    var icon = document.getElementsByClassName('fa-lock')[0];
+    icon.classList.remove("fa-lock");
+    icon.classList.add("fa-lock-open");
     document.getElementById('logpass').disabled = false;
     document.getElementById('logpass').placeholder = "비밀번호 변경...";
     modifybtn.style.display = 'none'; // 버튼 숨기기
@@ -38,5 +41,19 @@ function withdrawal() {
 
     if (request.status === 200) {
         alert("회원 탈퇴가 완료 되었습니다.");
+    }else{
+        alert("회원 탈퇴 실패");
     }
+}
+
+function pw_modify(){
+    var icon = document.getElementsByClassName('fa-lock-open')[0];
+    icon.classList.remove("fa-lock-open");
+    icon.classList.add("fa-lock");
+    document.getElementById('logpass').value = "";
+    document.getElementById('logpass').disabled = true;
+    document.getElementById('logpass').placeholder ="**********";
+    modifybtn.style.display = "inline-flex";
+    modifyCompleteLink.style.display = "none";
+    alert("비밀번호 변경이 완료 되었습니다.")
 }
