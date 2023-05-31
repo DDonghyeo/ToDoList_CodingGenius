@@ -87,7 +87,7 @@ function load_todo() {
               <div class="work-details-header">
                 <span>${worklist[j].name}</span>
                 <div class="tool_box" >
-                  <button class="memo-button fa-solid fa-file-pen"></button>
+                  <button class="edit-button fa-solid fa-pencil" onclick="edit_work(this)"></button>
                   <button class="fa-circle-check fa-regular complete-button complete_btn fa-lg" onclick="complete_work(this)">
                   <button class="delete-button fa-solid fa-trash-can fa-lg" onclick="delete_work(this)"></button>
                 </div>
@@ -109,7 +109,7 @@ function load_todo() {
               <div class="work-details-header">
                 <span>${worklist[j].name}</span>
                 <div class="tool_box" >
-                  <button class="memo-button fa-solid fa-file-pen"></button>
+                  <button class="edit-button fa-solid fa-pencil" onclick="edit_work(this)"></button>
                   <button class="fa-circle-check fa-regular complete-button fa-lg" onclick="complete_work(this)"></button>
                   <button class="delete-button fa-solid fa-trash-can fa-lg" onclick="delete_work(this)"></button>
                 </div>
@@ -324,6 +324,35 @@ function complete_work(e){
 
 }
 
+function edit_work(e){
+  var span = e.parentNode.parentNode.getElementsByTagName('span')[0];
+  var memo = parentNode.parentNode.parentNode.nextElementSibling;
+  console.log(memo);
+
+  //change span -> input
+  var inputElement = document.createElement("input"); 
+  var inputElement1 = document.createElement("input"); 
+
+  inputElement.value = span.innerHTML;
+  inputElement.setAttribute("type", "text"); 
+  name.parentNode.replaceChild(inputElement, span);
+
+  inputElement1.value = exp.innerHTML;
+  inputElement1.setAttribute("type", "text"); 
+  exp.parentNode.replaceChild(inputElement1, exp);
+
+  e.classList.remove("fa-pencil");
+  e.classList.add("fa-check");
+  e.removeAttribute("onclick");
+  e.setAttribute("onclick", "edit_complete_todo(this)");
+  e.setAttribute("oldname", name.innerHTML);
+}
+
+function edit_work_complete(e){
+  var todoName = e.parentNode.parentNode.parentNode.getAttribute("todoName");
+  var oldName = e.parentNode.parentNode.getElementsByTagName('span')[0].innerText;
+}
+
 function delete_work(e){
   var todoName = e.parentNode.parentNode.parentNode.getAttribute('parent');
   var workName = e.parentNode.parentNode.getElementsByTagName('span')[0].innerText;
@@ -340,7 +369,7 @@ function delete_work(e){
     init_todo();
     load_todo();
   }else{
-    alert("완료 표시 실패");
+    alert("삭제 실패");
     return
   }
 

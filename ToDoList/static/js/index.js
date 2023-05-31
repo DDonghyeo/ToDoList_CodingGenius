@@ -79,7 +79,7 @@ function submit_sign_up() {
 }
 
 function log_in() {
-    document.getElementById("log_in").innerText = "Loging in ...";
+    document.getElementById("log_in").innerText = "Logging in ...";
     var email = document.getElementById('login-email').value;
     var pw = document.getElementById('login-pw').value;
     //정보 전송
