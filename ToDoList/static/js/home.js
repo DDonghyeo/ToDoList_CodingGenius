@@ -325,27 +325,27 @@ function complete_work(e){
 }
 
 function edit_work(e){
-  var span = e.parentNode.parentNode.getElementsByTagName('span')[0];
-  var memo = parentNode.parentNode.parentNode.nextElementSibling;
+  var work = e.parentNode.parentNode.getElementsByTagName('span')[0];
+  var memo = e.parentNode.parentNode.parentNode.nextElementSibling.getElementsByTagName('span')[0];
   console.log(memo);
 
   //change span -> input
   var inputElement = document.createElement("input"); 
   var inputElement1 = document.createElement("input"); 
 
-  inputElement.value = span.innerHTML;
+  inputElement.value = work.innerHTML;
   inputElement.setAttribute("type", "text"); 
-  name.parentNode.replaceChild(inputElement, span);
+  work.parentNode.replaceChild(inputElement, span);
 
-  inputElement1.value = exp.innerHTML;
+  inputElement1.value = memo.innerHTML;
   inputElement1.setAttribute("type", "text"); 
-  exp.parentNode.replaceChild(inputElement1, exp);
+  memo.parentNode.replaceChild(inputElement1, memo);
 
   e.classList.remove("fa-pencil");
   e.classList.add("fa-check");
   e.removeAttribute("onclick");
   e.setAttribute("onclick", "edit_complete_todo(this)");
-  e.setAttribute("oldname", name.innerHTML);
+  e.setAttribute("oldname", work.innerHTML);
 }
 
 function edit_work_complete(e){
