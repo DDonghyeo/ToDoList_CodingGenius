@@ -55,5 +55,16 @@ function pw_modify(){
     document.getElementById('logpass').placeholder ="**********";
     modifybtn.style.display = "inline-flex";
     modifyCompleteLink.style.display = "none";
-    alert("비밀번호 변경이 완료 되었습니다.")
+
+
+    const request = new XMLHttpRequest();
+    request.open('POST', "https://geniustodo.shop/user", false);
+    request.setRequestHeader('Content-type', 'application/json');
+    request.setRequestHeader('Authorization', sessionStorage.getItem('Authorization'));
+    var new_password = document.getElementById('logpass').value;
+    request.send(new_password);
+    
+    if (request.status === 200) {
+        alert("비밀번호 변경이 완료 되었습니다.")
+    }
 }
