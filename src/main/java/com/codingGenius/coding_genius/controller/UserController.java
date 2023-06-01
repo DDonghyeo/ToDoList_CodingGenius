@@ -72,4 +72,18 @@ public class UserController {
             throw new RuntimeException(e);
         }
     }
+
+    @PostMapping("")
+    @CrossOrigin(origins = "*")
+    @ApiOperation(value = "사용자 비밀번호 변경", notes = "Request : Request Header에 Authorization : token, Request Body에 password 넣어서 요청\nResponse : Https Status 200")
+    public ResponseEntity<?> changePassword(HttpServletRequest httpServletRequest, @RequestBody String password){
+        try{
+            String token = httpServletRequest.getHeader("Authorization");
+            String email = JwtUtil.getBody(token);
+            userService.changePassword(email, password);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
 }
