@@ -48,6 +48,13 @@ function withdrawal() {
 }
 
 function pw_modify(){
+    var new_password = document.getElementById('logpass').value;
+    //validation
+    if(new_password == ""){
+        alert("새로운 비밀번호를 입력해 주세요.");
+        return
+    }
+
     var icon = document.getElementsByClassName('fa-lock-open')[0];
     icon.classList.remove("fa-lock-open");
     icon.classList.add("fa-lock");
@@ -62,7 +69,6 @@ function pw_modify(){
     request.open('POST', "https://geniustodo.shop/user", false);
     request.setRequestHeader('Content-type', 'application/json');
     request.setRequestHeader('Authorization', sessionStorage.getItem('Authorization'));
-    var new_password = document.getElementById('logpass').value;
     request.send(new_password);
     
     if (request.status === 200) {

@@ -1,7 +1,25 @@
 function email_validation_request() {
+    var name = document.getElementById('signup-name').getElementsByClassName('form-style')[0].value;
+    var email = document.getElementById('signup-email').getElementsByClassName('form-style')[0].value;
+    var pw = document.getElementById('signup-pw').getElementsByClassName('form-style')[0].value;
+
+    //validation
+    if (name == ""){
+        alert("이름을 입력해 주세요.");
+        return
+    }
+
+    if (email == ""){
+        alert("이메일을 입력해 주세요.");
+        return
+    }
+    if (pw == ""){
+        alert("비밀번호를 입력해 주세요.");
+        return
+    }
+
     document.getElementById('email_vali_check_btn').innerText = "Sending...";
 
-    var email = document.getElementById('signup-email').getElementsByClassName('form-style')[0].value;
     //정보 전송
     const email_request = new XMLHttpRequest();
     var url = 'https://geniustodo.shop/login/email?email=' + email;
@@ -26,7 +44,7 @@ function email_validation_check() {
     var code = document.getElementById('signup-email-check').getElementsByClassName('form-style')[0].value;
     //작성했는지?
     if (code == "") {
-        alert("이메일에서 받은 code를 입력해 주세요.");
+        alert("이메일에서 받은 코드를 입력해 주세요. \n 전송한 이메일은 "+email+"입니다.");
         return
     }
 
@@ -75,6 +93,9 @@ function log_in() {
     document.getElementById("log_in").innerText = "Logging in ...";
     var email = document.getElementById('login-email').value;
     var pw = document.getElementById('login-pw').value;
+    if((email=="")||(pw=="")){
+        alert("이메일 또는 비밀번호를 입력해 주세요.")
+    }
     //정보 전송
     const request = new XMLHttpRequest();
     request.open('POST', 'https://geniustodo.shop/login', false);

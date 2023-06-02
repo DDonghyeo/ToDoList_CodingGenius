@@ -54,7 +54,7 @@ function load_todo() {
               <span class="todo-exp">${obj.expiration}</span>
             </div>
             <div class="tool_box">
-              <button class="edit-button fa-solid fa-pencil fa-lg" ></button>
+              <button class="edit-button fa-solid fa-pencil fa-lg" onclick = "edit_todo(this)"></button>
               <button class="complete-button fa-regular fa-circle-check complete_btn fa-lg" onclick="complete_todo(this)"></button>
               <button class="delete-button fa-solid fa-trash-can fa-lg" onclick="delete_todo(this)"></button>
               <buttton class="fa-solid fa-plus add-button fa-lg" onclick="add_work(this)"></button>
@@ -198,6 +198,17 @@ function edit_complete_todo(e){
   var old_name = e.getAttribute("oldname");
   var new_name = parent[0].value;
   var new_exp = parent[1].value;
+
+  //validation
+  if(new_name == ""){
+    alert("이름을 입력해 주세요.")
+    return
+  }
+
+  if(new_exp == ""){
+    alert("날짜를 입력해 주세요.")
+    return
+  }
   
   const request = new XMLHttpRequest();
   request.open('PUT', "https://geniustodo.shop/todo", false);
@@ -242,6 +253,16 @@ function add_to_do_complete(e){
   var name = parent.getElementsByClassName('todo-name')[0].value;
   var exp = parent.getElementsByClassName('todo-exp')[0].value;
 
+  //validation
+  if(name == ""){
+    alert("이름을 입력해 주세요.");
+    return
+  }
+
+  if(exp == ""){
+    alert("날짜를 입력해 주세요.");
+    return
+  }
 
   const request = new XMLHttpRequest();
   request.open('POST', "https://geniustodo.shop/todo", false);
@@ -286,6 +307,12 @@ function add_work_complete(e){
   var parent = e.parentNode.parentNode.getElementsByTagName('input');
   var workName = parent[0].value;
   var memo = parent[1].value;
+
+  //validation
+  if(workName == ""){
+    alert("이름을 입력해 주세요.");
+    return
+  }
 
   const request = new XMLHttpRequest();
   request.open('POST', "https://geniustodo.shop/work", false);
@@ -359,6 +386,11 @@ function edit_work_complete(e){
   var newName = e.parentNode.parentNode.getElementsByTagName('input')[0].value;
   var memo = e.parentNode.parentNode.parentNode.nextElementSibling.getElementsByTagName('input')[0].value;
 
+  //validation
+  if(newName == ""){
+    alert("이름을 입력해 주세요.");
+    return
+  }
 
 
   const request = new XMLHttpRequest();
