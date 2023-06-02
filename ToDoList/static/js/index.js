@@ -95,6 +95,7 @@ function log_in() {
     var pw = document.getElementById('login-pw').value;
     if((email=="")||(pw=="")){
         alert("이메일 또는 비밀번호를 입력해 주세요.")
+        return
     }
     //정보 전송
     const request = new XMLHttpRequest();
