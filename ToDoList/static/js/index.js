@@ -90,13 +90,13 @@ function submit_sign_up() {
 }
 
 function log_in() {
-    document.getElementById("log_in").innerText = "Logging in ...";
     var email = document.getElementById('login-email').value;
     var pw = document.getElementById('login-pw').value;
     if((email=="")||(pw=="")){
         alert("이메일 또는 비밀번호를 입력해 주세요.")
         return
     }
+    document.getElementById("log_in").innerText = "Logging in ...";
     //정보 전송
     const request = new XMLHttpRequest();
     request.open('POST', 'https://geniustodo.shop/login', false);
