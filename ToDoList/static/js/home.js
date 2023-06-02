@@ -219,6 +219,8 @@ function edit_complete_todo(e){
 function add_to_do(){
   var newElement = document.createElement('div');
   newElement.className = "todo";
+  newElement.classList.add("new");
+  newElement.style.width = "0%";
   var htmlString = `
   <div class="todo-header">
     <div class="todo_info">
@@ -227,12 +229,12 @@ function add_to_do(){
     </div>
     <div class="tool_box">
       <button class="edit-button fa-solid fa-check fa-lg" onclick="add_to_do_complete(this)"></button>
-      <button class="delete-button fa-solid fa-trash-can fa-lg"></button>
+      <button class="delete-button fa-solid fa-trash-can fa-lg" onclick="add_cancle(this)"></button>
     </div>
   `;
   newElement.innerHTML = htmlString;
-
   document.getElementsByClassName('todo-list')[0].appendChild(newElement);
+  document.getElementsByClassName('todo-list')[0].getElementsByClassName("new")[0].style.width= "100%";
 }
 
 function add_to_do_complete(e){
@@ -269,7 +271,7 @@ function add_work(e){
     <input placeholder="메모">
     <div class="tool_box" >
       <button class="edit-button fa-solid fa-check fa-lg" onclick="add_work_complete(this)"></button>
-      <button class="delete-button fa-solid fa-trash-can fa-lg"></button>
+      <button class="delete-button fa-solid fa-trash-can fa-lg" onclick="add_cancle(this)"></button>
     </div>
   </div>
   `;
@@ -327,7 +329,8 @@ function complete_work(e){
 function edit_work(e){
   var work = e.parentNode.parentNode.getElementsByTagName('span')[0];
   var memo = e.parentNode.parentNode.parentNode.nextElementSibling.getElementsByTagName('span')[0];
-  console.log(memo);
+
+  e.parentNode.parentNode.parentNode.setAttribute("oldName", work.innerText);
 
   //change span -> input
   var inputElement = document.createElement("input"); 
@@ -335,7 +338,7 @@ function edit_work(e){
 
   inputElement.value = work.innerHTML;
   inputElement.setAttribute("type", "text"); 
-  work.parentNode.replaceChild(inputElement, span);
+  work.parentNode.replaceChild(inputElement, work);
 
   inputElement1.value = memo.innerHTML;
   inputElement1.setAttribute("type", "text"); 
@@ -344,13 +347,35 @@ function edit_work(e){
   e.classList.remove("fa-pencil");
   e.classList.add("fa-check");
   e.removeAttribute("onclick");
-  e.setAttribute("onclick", "edit_complete_todo(this)");
+  e.setAttribute("onclick", "edit_work_complete(this)");
   e.setAttribute("oldname", work.innerHTML);
 }
 
 function edit_work_complete(e){
-  var todoName = e.parentNode.parentNode.parentNode.getAttribute("todoName");
-  var oldName = e.parentNode.parentNode.getElementsByTagName('span')[0].innerText;
+  var parent = e.parentNode.parentNode.parentNode;
+
+  var todoName = parent.getAttribute("parent");
+  var oldName = parent.getAttribute("oldName");
+  var newName = e.parentNode.parentNode.getElementsByTagName('input')[0].value;
+  var memo = e.parentNode.parentNode.parentNode.nextElementSibling.getElementsByTagName('input')[0].value;
+
+
+
+  const request = new XMLHttpRequest();
+  request.open('PUT', "https://geniustodo.shop/work", false);
+  request.setRequestHeader('Content-type', 'application/json');
+  request.setRequestHeader('Authorization', sessionStorage.getItem('Authorization'));
+  const requestBody = { memo: memo, newName: newName, oldName : oldName, todoName : todoName};
+  const requestBodyString = JSON.stringify(requestBody);
+  request.send(requestBodyString);
+
+  if (request.status === 200) {
+    init_todo();
+    load_todo();
+  }else{
+    alert("완료 표시 실패");
+    return
+  }
 }
 
 function delete_work(e){
@@ -373,4 +398,8 @@ function delete_work(e){
     return
   }
 
+}
+
+function add_cancle(e){
+  e.parentNode.parentNode.parentNode.remove();
 }

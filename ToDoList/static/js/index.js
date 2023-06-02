@@ -6,24 +6,17 @@ function email_validation_request() {
     const email_request = new XMLHttpRequest();
     var url = 'https://geniustodo.shop/login/email?email=' + email;
 
-    email_request.open('POST', url, false);
+    email_request.open('POST', url, true);
     email_request.setRequestHeader('Content-type', 'application/json');
     email_request.send();
 
-    if (email_request.status === 200) {
-        alert("메일을 전송했습니다. 메일을 확인해 주세요.");
-        document.getElementById('signup-email-check').style.display = "block";
-        document.getElementById('email_vali_check_btn').style.display = "none";
-        document.getElementById('submit').style.display = "block";
-        document.getElementById('signup-name').style.display = "none";
-        document.getElementById('signup-email').style.display = "none";
-        document.getElementById('signup-pw').style.display = "none";
-    } else {
-        alert("메일 전송 요청 실패");
-        document.getElementById('email_vali_check_btn').innerText = "submit";
-    }
-
-
+    alert(email+ "로 메일을 전송했습니다. 메일을 확인해 주세요.");
+    document.getElementById('signup-email-check').style.display = "block";
+    document.getElementById('email_vali_check_btn').style.display = "none";
+    document.getElementById('submit').style.display = "block";
+    document.getElementById('signup-name').style.display = "none";
+    document.getElementById('signup-email').style.display = "none";
+    document.getElementById('signup-pw').style.display = "none";
 }
 
 

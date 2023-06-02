@@ -41,6 +41,7 @@ function withdrawal() {
 
     if (request.status === 200) {
         alert("회원 탈퇴가 완료 되었습니다.");
+        window.location.replace("/");
     }else{
         alert("회원 탈퇴 실패");
     }
