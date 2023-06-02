@@ -240,7 +240,7 @@ function add_to_do(){
     </div>
     <div class="tool_box">
       <button class="edit-button fa-solid fa-check fa-lg" onclick="add_to_do_complete(this)"></button>
-      <button class="delete-button fa-solid fa-trash-can fa-lg" onclick="add_cancle(this)"></button>
+      <button class="delete-button fa-solid fa-xmark fa-lg" onclick="add_cancle(this)"></button>
     </div>
   `;
   newElement.innerHTML = htmlString;
@@ -292,7 +292,7 @@ function add_work(e){
     <input placeholder="메모">
     <div class="tool_box" >
       <button class="edit-button fa-solid fa-check fa-lg" onclick="add_work_complete(this)"></button>
-      <button class="delete-button fa-solid fa-trash-can fa-lg" onclick="add_cancle(this)"></button>
+      <button class="delete-button fa-solid fa-xmark fa-lg" onclick="add_cancle(this)"></button>
     </div>
   </div>
   `;
