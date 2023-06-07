@@ -13,6 +13,7 @@ Django <br>
 <div style="display=flex; flex-direction: column;">
   
   <img width="500" alt="image" src="https://github.com/DDonghyeo/ToDoList_CodingGenius/assets/98632435/947637ee-42cd-4aee-945e-d4a37942fe3a">
+<img width="637" alt="image" src="https://github.com/DDonghyeo/ToDoList_CodingGenius/assets/98632435/79bf707b-ec09-498f-a843-3448378bd6ca">
 
 
 <img width="500" alt="image" src="https://github.com/DDonghyeo/ToDoList_CodingGenius/assets/98632435/d2018760-35e2-4c90-b180-4c9076bffa41">
