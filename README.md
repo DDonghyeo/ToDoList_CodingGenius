@@ -1,6 +1,7 @@
 # To Do List _ Coding Genius
 
 소프트웨어공학 팀 프로젝트, To Do List 웹앱입니다.
+FE, BE브랜치로 코드를 나누어 놓았습니다.
 
 ## 배포
 
@@ -49,7 +50,7 @@ Django <br>
 ## Tech
 
 Java, <br>
-주요 기술 구현 : Email Login, Authentication, Autherization - Jwt Token, Email Sending Service, Swagger, SSL, PasswordEncoding
+주요 기술 구현 : Email Login, Authentication, Authorization - Jwt Token, Email Sending Service, Swagger, SSL, PasswordEncoding, MongoRepositoru
 
 ## Framework
 Spring <br>
@@ -61,7 +62,6 @@ Spring <br>
 - Spring Security
 - JDBC API
 - Spring Boot DevTools
-- Mysql Drvier
 - Spring Data JDBC
 - jwt
 - Java Mail Sender
